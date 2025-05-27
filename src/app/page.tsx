@@ -19,6 +19,10 @@ const mainSlideOptions = {
   }
 };
 
+function handleTouch() {
+  window.open('mailto:freedomcly@gmail.com')
+}
+
 export default function Home() {
   return (
     <div className='flex flex-col items-center justify-center'>
@@ -40,7 +44,7 @@ export default function Home() {
       </div>
       <div className={`mt-[100px] ${styles.skillswrap}`}>
         <h2 className={styles.intro}>Skills</h2>
-        <ul className={`w-[430px] space-y-6 md:w-[700px] lg:w-[1000px] flex justify-center flex-col md:flex-row md:space-x-6 lg:flex-row ${styles.skills}`}>
+        <ul className={`space-y-6 md:w-[700px] lg:w-[1000px] flex justify-center flex-col md:flex-row md:space-x-6 lg:flex-row ${styles.skills}`}>
           <li>
             <h3>Language</h3>
             <ul>
@@ -104,7 +108,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mt-[100px]">
+      <div className={`mt-[100px] ${styles.swiperbox}`}>
         <h2 className={styles.intro}>Example Projects</h2>
         {/* <ul className={`flex items-center justify-center space-x-6 ${styles.skills}`}>
           <li>
@@ -118,7 +122,7 @@ export default function Home() {
           spaceBetween={50}
           pagination={{ clickable: true }}
           {...mainSlideOptions}
-          className={`${styles.slidewrap} w-[420px] md:w-[700px] lg:w-[1000px]`}
+          className={`${styles.slidewrap} md:w-[700px] lg:w-[1000px]`}
         >
           <SwiperSlide className={styles.slide}>
             <div className={`${styles.slideitem} flex items-center justify-center`}>
@@ -187,7 +191,7 @@ export default function Home() {
 
 
 
-      <div className={`${styles.touch} w-[420px] md:w-[700px] lg:w-[1000px]`} title="email">
+      <div onClick={handleTouch} className={`${styles.touch} w-[420px] md:w-[700px] lg:w-[1000px]`} title="email">
         <div className={`${styles.touchword} text-[100px] lg:text-[140px] md:text-[120px]`}>Get in touch</div>
       </div>
       <ul className={`${styles.contact} flex items-center justify-center space-x-6`}>
