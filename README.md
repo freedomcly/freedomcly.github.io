@@ -5,8 +5,10 @@
 ```bash
 npm install
 npm run dev
+```
 
 
 ```bash
 npm run build
-npm run export
+npm run deploy
+```
