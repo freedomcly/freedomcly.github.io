@@ -8,7 +8,7 @@ import { trackEvent } from '@/lib/gtag';
 
 import styles from '@/styles/components/ArticleList.module.css';
 
-interface Article {
+export interface Article {
   slug?: string;
   title: string;
   excerpt: string;

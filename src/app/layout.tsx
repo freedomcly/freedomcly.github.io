@@ -1,4 +1,5 @@
 import type {Metadata} from 'next';
+import {Suspense} from 'react';
 import '@/styles/common/globals.css';
 import {LanguageProvider} from '@/contexts/LanguageContext';
 import {ThemeProvider} from '@/contexts/ThemeContext';
@@ -12,14 +13,15 @@ export const metadata: Metadata = {
   icons: [{
     rel: 'icon',
     url: '/favicon.ico'
-  }],
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  }
+  }]
 };
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
 
 export default function RootLayout({
   children,
@@ -32,9 +34,11 @@ export default function RootLayout({
         <GoogleAnalytics />
         <ThemeProvider>
           <LanguageProvider>
-            <PageTracker />
+            <Suspense fallback={null}>
+              <PageTracker />
+            </Suspense>
             <ScrollTracker />
-            {children}
+            <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
           </LanguageProvider>
         </ThemeProvider>
       </body>

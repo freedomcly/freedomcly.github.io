@@ -6,29 +6,42 @@ import HeroSection from '@/components/HeroSection';
 import FEStorySection from '@/components/FEStorySection';
 import AIStorySection from '@/components/AIStorySection';
 import ContactSection from '@/components/ContactSection';
-import ProjectsSection from '@/components/ProjectsSection';
+// import ProjectsSection from '@/components/ProjectsSection';
 import SettingsPanel from '@/components/SettingsPanel';
-import ArticleList from '@/components/ArticleList';
+import ArticleList, {Article} from '@/components/ArticleList';
 import {useLanguage} from '@/contexts/LanguageContext';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, Suspense} from 'react';
 
 import styles from '@/styles/pages/home.module.css';
 
 export default function Home() {
   const {language} = useLanguage();
-  const [articles, setArticles] = useState<any[]>([]);
+  const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
-    // 动态导入客户端版本的文章获取函数
-    import('@/lib/articles-client').then(({getArticlesForLanguage}) => {
-      const currentArticles = getArticlesForLanguage(language);
-      setArticles(currentArticles);
+    // 直接使用远程文章数据
+    import('@/lib/remote-articles').then(({ remoteArticles }) => {
+      const currentArticles = remoteArticles.map(article => ({
+        slug: article.meta.remoteUrl,
+        title: article.meta.title[language] || article.meta.title.zh,
+        date: article.meta.date,
+        readTime: article.meta.readTime,
+        isRemote: true,
+        category: article.meta.category[language] || article.meta.category.zh,
+        tags: article.meta.tags,
+        excerpt: 'Remote article - click to read more',
+        sourceSite: article.meta.remoteUrl?.includes('github.com') ? 'GitHub' : 
+                   article.meta.remoteUrl?.includes('mp.weixin.qq.com') ? '微信公众号' : 'External'
+      }));
+      setArticles(currentArticles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()));
     });
   }, [language]);
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <Navigation />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Navigation />
+      </Suspense>
 
       <HeroSection />
 
