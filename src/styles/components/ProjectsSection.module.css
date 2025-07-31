@@ -1,0 +1,124 @@
+/* Projects Section Container */
+.projectsSection {
+  padding: var(--space-20) var(--space-4);
+  background: var(--color-background);
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Section Title */
+.title {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-16);
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all var(--duration-slow) var(--ease-out);
+}
+
+.title.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  border-radius: var(--radius-full);
+}
+
+/* Projects Grid */
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--space-8);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all var(--duration-slow) var(--ease-out) 0.2s;
+}
+
+.projectsGrid.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Font Classes */
+.chineseFont {
+  font-family: var(--font-chinese);
+}
+
+.chineseFont .title {
+  font-family: var(--font-chinese);
+  font-weight: var(--font-weight-semibold);
+}
+
+.englishFont {
+  font-family: var(--font-sans);
+}
+
+.englishFont .title {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .projectsSection {
+    padding: var(--space-16) var(--space-4);
+  }
+
+  .projectsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .title {
+    margin-bottom: var(--space-12);
+  }
+}
+
+@media (max-width: 480px) {
+  .projectsSection {
+    padding: var(--space-12) var(--space-3);
+  }
+
+  .projectsGrid {
+    gap: var(--space-5);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .title,
+  .projectsGrid {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .title {
+    color: var(--color-text-primary);
+  }
+
+  .title::after {
+    background: var(--color-text-primary);
+  }
+}

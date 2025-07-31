@@ -1,0 +1,400 @@
+.container {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.article {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 120px 24px 60px;
+  line-height: 1.7;
+  margin-right: 320px; /* 为目录留出空间 */
+}
+
+.articleHeader {
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.breadcrumbLink {
+  color: #667eea;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumbLink:hover {
+  color: #764ba2;
+}
+
+.breadcrumbSeparator {
+  color: #ccc;
+}
+
+.breadcrumbCurrent {
+  color: #333;
+}
+
+.articleTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 24px 0;
+  color: #333;
+  font-family: "Libre Baskerville", "Libre Baskerville Placeholder", serif;
+}
+
+.articleMeta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.articleDate {
+  color: #888;
+}
+
+.articleCategory {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+.readTime {
+  background: rgba(0, 0, 0, 0.05);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+.articleTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.articleContent {
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.markdown {
+  color: #333;
+}
+
+.markdown h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 48px 0 24px 0;
+  color: #333;
+  line-height: 1.3;
+  font-family: "Libre Baskerville", "Libre Baskerville Placeholder", serif;
+}
+
+.markdown h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 40px 0 20px 0;
+  color: #333;
+  line-height: 1.3;
+  font-family: "Libre Baskerville", "Libre Baskerville Placeholder", serif;
+}
+
+.markdown h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 32px 0 16px 0;
+  color: #333;
+  line-height: 1.3;
+  font-family: "Libre Baskerville", "Libre Baskerville Placeholder", serif;
+}
+
+.markdown h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 24px 0 12px 0;
+  color: #333;
+  line-height: 1.3;
+}
+
+.markdown p {
+  margin: 16px 0;
+  color: #444;
+}
+
+.markdown ul, .markdown ol {
+  margin: 16px 0;
+  padding-left: 24px;
+}
+
+.markdown li {
+  margin: 8px 0;
+  color: #444;
+}
+
+.markdown blockquote {
+  margin: 24px 0;
+  padding: 16px 24px;
+  background: rgba(102, 126, 234, 0.05);
+  border-left: 4px solid #667eea;
+  border-radius: 0 8px 8px 0;
+}
+
+.markdown blockquote p {
+  margin: 0;
+  color: #555;
+  font-style: italic;
+}
+
+.markdown pre {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 24px 0;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.markdown code {
+  background: #f8f9fa;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #e83e8c;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.markdown pre code {
+  background: none;
+  padding: 0;
+  color: #333;
+}
+
+.markdown a {
+  color: #667eea;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.markdown a:hover {
+  color: #764ba2;
+  border-bottom-color: #764ba2;
+}
+
+.markdown img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 24px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.notFound {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 120px 24px;
+  text-align: center;
+}
+
+.notFound h1 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.notFound p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* 中文字体支持 */
+:global(.chineseFont) .articleTitle,
+:global(.chineseFont) .markdown h1,
+:global(.chineseFont) .markdown h2,
+:global(.chineseFont) .markdown h3 {
+  font-family: var(--font-chinese);
+}
+
+:global(.chineseFont) .markdown p,
+:global(.chineseFont) .markdown li,
+:global(.chineseFont) .articleMeta,
+:global(.chineseFont) .breadcrumb {
+  font-family: var(--font-chinese);
+}
+
+/* 深色模式支持 */
+@media (prefers-color-scheme: dark) {
+  .articleHeader {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .breadcrumbLink {
+    color: #4facfe;
+  }
+  
+  .breadcrumbLink:hover {
+    color: #00f2fe;
+  }
+  
+  .breadcrumbCurrent {
+    color: #ededed;
+  }
+  
+  .articleTitle {
+    color: #ededed;
+  }
+  
+  .articleCategory {
+    background: rgba(79, 172, 254, 0.1);
+    color: #4facfe;
+  }
+  
+  .readTime {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .tag {
+    background: rgba(79, 172, 254, 0.1);
+    color: #4facfe;
+  }
+  
+  .markdown {
+    color: #ededed;
+  }
+  
+  .markdown h1,
+  .markdown h2,
+  .markdown h3,
+  .markdown h4 {
+    color: #ededed;
+  }
+  
+  .markdown p,
+  .markdown li {
+    color: #ccc;
+  }
+  
+  .markdown blockquote {
+    background: rgba(79, 172, 254, 0.05);
+    border-left-color: #4facfe;
+  }
+  
+  .markdown blockquote p {
+    color: #bbb;
+  }
+  
+  .markdown pre {
+    background: #2d2d2d;
+    border-color: #404040;
+  }
+  
+  .markdown code {
+    background: #2d2d2d;
+    color: #ff6b9d;
+  }
+  
+  .markdown pre code {
+    color: #ededed;
+  }
+  
+  .markdown a {
+    color: #4facfe;
+  }
+  
+  .markdown a:hover {
+    color: #00f2fe;
+    border-bottom-color: #00f2fe;
+  }
+  
+  .notFound h1 {
+    color: #ededed;
+  }
+  
+  .notFound p {
+    color: #aaa;
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .article {
+    margin-right: 0; /* 在小屏幕上移除右边距 */
+  }
+}
+
+@media (max-width: 768px) {
+  .article {
+    padding: 100px 20px 40px;
+    margin-right: 0;
+  }
+  
+  .articleTitle {
+    font-size: 2rem;
+  }
+  
+  .articleMeta {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  
+  .markdown h1 {
+    font-size: 1.6rem;
+  }
+  
+  .markdown h2 {
+    font-size: 1.4rem;
+  }
+  
+  .markdown h3 {
+    font-size: 1.2rem;
+  }
+  
+  .articleContent {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .article {
+    padding: 90px 16px 30px;
+  }
+  
+  .articleTitle {
+    font-size: 1.8rem;
+  }
+  
+  .breadcrumb {
+    font-size: 0.8rem;
+  }
+  
+  .articleMeta {
+    font-size: 0.8rem;
+  }
+}

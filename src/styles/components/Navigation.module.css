@@ -1,0 +1,925 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  padding: var(--space-3) 0;
+  transition: all var(--duration-normal) var(--ease-out);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset;
+}
+
+.nav.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(32px) saturate(200%);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.2) inset;
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .nav {
+  background: rgba(15, 23, 42, 0.85);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+}
+
+[data-theme="dark"] .nav.scrolled {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(32px) saturate(200%);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 1px 0 rgba(255, 255, 255, 0.1) inset;
+  border-bottom-color: rgba(255, 255, 255, 0.15);
+}
+
+/* 滚动进度条 */
+.progressBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+  transition: width var(--duration-fast) var(--ease-out);
+  border-radius: 0 2px 2px 0;
+}
+
+.container {
+  max-width: var(--breakpoint-xl);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-2);
+  border-radius: var(--radius-lg);
+  transition: all var(--duration-normal) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+  /* width: 60px; */
+  /* height: 60px; */
+}
+
+/* Logo 动画效果 */
+.logo img {
+  transition: transform 0.4s ease-in-out;
+}
+
+.logo img:hover {
+  transform: rotate(360deg);
+}
+
+.logo:hover {
+  transform: translateY(-2px);
+  background: rgba(37, 99, 235, 0.05);
+}
+
+.logoContainer {
+  position: relative;
+}
+
+.logoText {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.logoName {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+  margin-left: var(--space-1);
+  transition: all var(--duration-normal) var(--ease-out);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logo:hover .logoName {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.logoUnderline {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+  transition: width var(--duration-normal) var(--ease-out);
+  border-radius: 1px;
+}
+
+.logo:hover .logoUnderline {
+  width: 100%;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.navLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-tertiary);
+  font-style: italic;
+  padding: var(--space-2) var(--space-3);
+  background: rgba(37, 99, 235, 0.05);
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.arrow {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-light);
+  transition: all var(--duration-normal) var(--ease-out);
+  user-select: none;
+  padding: var(--space-1);
+  border-radius: var(--radius-base);
+}
+
+.arrow:hover {
+  color: var(--color-primary);
+  transform: translateX(3px) scale(1.1);
+  background: rgba(37, 99, 235, 0.1);
+}
+
+.navLink {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-2xl);
+  position: relative;
+  transition: all var(--duration-normal) var(--ease-out);
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.navLink:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.1),
+    0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.navLink.active {
+  background: var(--color-primary-lighter);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.navLinkBg {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  transition: left var(--duration-normal) var(--ease-out);
+  z-index: 0;
+}
+
+.navLink:hover .navLinkBg {
+  left: 0;
+}
+
+.navLinkText {
+  position: relative;
+  z-index: 1;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.identityIcon {
+  font-size: var(--font-size-base);
+  transition: all var(--duration-normal) var(--ease-out);
+  position: relative;
+  z-index: 1;
+}
+
+.navLink:hover .identityIcon {
+  transform: scale(1.2) rotate(5deg);
+}
+
+/* 不同身份的颜色主题 */
+.identity1:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.identity1:hover .navLinkBg {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(59, 130, 246, 0.05));
+}
+
+.identity2:hover {
+  color: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.identity2:hover .navLinkBg {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(34, 197, 94, 0.05));
+}
+
+.identity3:hover {
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+
+.identity3:hover .navLinkBg {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(248, 113, 113, 0.05));
+}
+
+.identity4:hover {
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+
+.identity4:hover .navLinkBg {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(248, 113, 113, 0.05));
+}
+
+.navAction {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.langToggle {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.langBtn {
+  padding: var(--space-1) var(--space-2);
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  transition: all var(--duration-fast) var(--ease-out);
+  color: var(--color-text-tertiary);
+  min-width: 24px;
+  font-family: inherit;
+  opacity: 0.6;
+}
+
+.langBtn:hover {
+  opacity: 0.8;
+  color: var(--color-text-secondary);
+}
+
+.langBtn.active {
+  color: var(--color-primary);
+  opacity: 1;
+  font-weight: var(--font-weight-medium);
+}
+
+.contactBtn {
+  padding: var(--space-3) var(--space-6);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: white;
+  text-decoration: none;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  transition: all var(--duration-normal) var(--ease-out);
+  box-shadow:
+    0 4px 12px rgba(37, 99, 235, 0.3),
+    0 2px 4px rgba(37, 99, 235, 0.2);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.contactBtnText {
+  position: relative;
+  z-index: 1;
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.contactBtnBg {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--color-primary-hover), var(--color-primary-dark));
+  transition: left var(--duration-normal) var(--ease-out);
+  z-index: 0;
+}
+
+.contactBtn:hover .contactBtnBg {
+  left: 0;
+}
+
+.contactBtn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 25px rgba(37, 99, 235, 0.4),
+    0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.contactBtn:hover .contactBtnText {
+  transform: scale(1.05);
+}
+
+/* 中文字体支持 */
+:global(.chineseFont) .logoText {
+  font-family: var(--font-chinese);
+}
+
+:global(.chineseFont) .logoName {
+  font-family: var(--font-chinese);
+}
+
+:global(.chineseFont) .navLink {
+  font-family: var(--font-chinese);
+}
+
+:global(.chineseFont) .navLabel {
+  font-family: var(--font-chinese);
+}
+
+:global(.chineseFont) .arrow {
+  font-family: inherit;
+}
+
+:global(.chineseFont) .contactBtn {
+  font-family: var(--font-chinese);
+}
+
+:global(.chineseFont) .langBtn {
+  font-family: var(--font-chinese);
+}
+
+/* ===== 响应式设计 ===== */
+@media (max-width: 1024px) {
+  .navLinks {
+    display: none !important;
+  }
+
+  .mobileMenuBtn {
+    display: flex !important;
+  }
+
+  .navAction {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--space-5);
+  }
+
+  .logoText {
+    font-size: var(--font-size-xl);
+  }
+
+  .nav {
+    padding: var(--space-4) 0;
+  }
+
+  .nav.scrolled {
+    padding: var(--space-3) 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 var(--space-4);
+  }
+
+  .logoText {
+    font-size: var(--font-size-lg);
+  }
+
+  .mobileMenu {
+    width: 100vw;
+    right: -100vw;
+  }
+
+  .mobileMenu.open {
+    right: 0;
+  }
+}
+
+/* ===== 动画优化 ===== */
+@media (prefers-reduced-motion: reduce) {
+
+  .nav,
+  .navLink,
+  .logo,
+  .arrow,
+  .mobileMenu,
+  .mobileOverlay,
+  .hamburgerLine {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ===== 高对比度模式支持 ===== */
+@media (prefers-contrast: high) {
+  .nav {
+    border-bottom-width: 2px;
+  }
+
+  .navLink {
+    border-width: 2px;
+  }
+
+  .contactBtn {
+    border: 2px solid var(--color-primary);
+  }
+}
+
+/* ===== 移动端菜单按钮 ===== */
+.mobileMenuBtn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.mobileMenuBtn:hover {
+  background: var(--color-background-secondary);
+}
+
+.hamburgerLine {
+  width: 20px;
+  height: 2px;
+  background: var(--color-text-primary);
+  margin: 2px 0;
+  transition: all var(--duration-normal) var(--ease-out);
+  border-radius: 1px;
+}
+
+.mobileMenuBtn.open .hamburgerLine:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobileMenuBtn.open .hamburgerLine:nth-child(2) {
+  opacity: 0;
+}
+
+.mobileMenuBtn.open .hamburgerLine:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* ===== 移动端遮罩层 ===== */
+.mobileOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1040;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.mobileOverlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ===== 移动端菜单 ===== */
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 280px;
+  height: 100vh;
+  background: var(--color-surface);
+  backdrop-filter: blur(24px);
+  z-index: 1050;
+  transition: right var(--duration-normal) var(--ease-out);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.1);
+  border-left: 1px solid var(--color-border);
+}
+
+.mobileMenu.open {
+  right: 0;
+}
+
+[data-theme="dark"] .mobileMenu {
+  background: rgba(30, 41, 59, 0.95);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.3);
+}
+
+.mobileMenuContent {
+  padding: var(--space-6);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileMenuHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.mobileMenuTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.mobileMenuClose {
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-lg);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.mobileMenuClose:hover {
+  background: var(--color-background-secondary);
+  color: var(--color-text-primary);
+}
+
+/* ===== 移动端导航链接 ===== */
+.mobileNavLinks {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.mobileNavLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-3);
+  background: none;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-out);
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.mobileNavLink:hover {
+  background: var(--color-background-secondary);
+  transform: translateX(4px);
+}
+
+.mobileNavLink.active {
+  background: var(--color-primary-lighter);
+  color: var(--color-primary);
+}
+
+.mobileNavLink.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--color-primary);
+  border-radius: 0 2px 2px 0;
+}
+
+.mobileNavIcon {
+  font-size: var(--font-size-xl);
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.mobileNavLink:hover .mobileNavIcon {
+  transform: scale(1.1);
+}
+
+.mobileNavText {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.mobileNavLink:hover .mobileNavText {
+  color: var(--color-primary);
+}
+
+/* ===== 移动端操作区域 ===== */
+.mobileMenuActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.mobileLangToggle {
+  display: flex;
+  gap: var(--space-2);
+  background: var(--color-background-secondary);
+  padding: var(--space-1);
+  border-radius: var(--radius-lg);
+}
+
+.mobileLangBtn {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  background: none;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.mobileLangBtn.active {
+  background: var(--color-surface);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.mobileContactBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: white;
+  text-decoration: none;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  transition: all var(--duration-normal) var(--ease-out);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.mobileContactBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+}
+
+/* ===== 增强动画效果 ===== */
+
+/* Logo 呼吸动画 */
+@keyframes logoGlow {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 5px rgba(37, 99, 235, 0.3));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 15px rgba(37, 99, 235, 0.5));
+  }
+}
+
+.logo:hover .logoName {
+  animation: logoGlow 2s ease-in-out infinite;
+}
+
+/* 导航链接波纹效果 */
+.navLink::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.3) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  transition: all var(--duration-normal) var(--ease-out);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.navLink:active::after {
+  width: 120px;
+  height: 120px;
+}
+
+/* 不同身份主题的点击波纹效果 */
+.identity1::after {
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.3) 0%, transparent 70%);
+}
+
+.identity2::after {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 70%);
+}
+
+.identity3::after {
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.3) 0%, transparent 70%);
+}
+
+/* 滚动进度条动画 */
+@keyframes progressPulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.progressBar {
+  animation: progressPulse 2s ease-in-out infinite;
+}
+
+/* 移动端菜单进入动画 */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.mobileMenu.open {
+  animation: slideInRight var(--duration-normal) var(--ease-out);
+}
+
+.mobileOverlay.open {
+  animation: fadeIn var(--duration-normal) var(--ease-out);
+}
+
+/* 移动端导航项延迟动画 */
+.mobileNavLink:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.mobileNavLink:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.mobileNavLink:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.mobileNavLink:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.mobileMenu.open .mobileNavLink {
+  animation: slideInRight 0.3s var(--ease-out) both;
+}
+
+/* 联系按钮脉冲效果 */
+@keyframes contactPulse {
+  0% {
+    box-shadow:
+      0 4px 12px rgba(37, 99, 235, 0.3),
+      0 2px 4px rgba(37, 99, 235, 0.2);
+  }
+
+  50% {
+    box-shadow:
+      0 6px 20px rgba(37, 99, 235, 0.4),
+      0 3px 8px rgba(37, 99, 235, 0.3);
+  }
+
+  100% {
+    box-shadow:
+      0 4px 12px rgba(37, 99, 235, 0.3),
+      0 2px 4px rgba(37, 99, 235, 0.2);
+  }
+}
+
+.contactBtn {
+  animation: contactPulse 3s ease-in-out infinite;
+}
+
+.contactBtn:hover {
+  animation: none;
+}
+
+/* 主题切换时的平滑过渡 */
+.nav,
+.mobileMenu,
+.navLink,
+.logo,
+.contactBtn {
+  transition:
+    background-color var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out),
+    color var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+/* 焦点可访问性增强 */
+.logo:focus-visible,
+.navLink:focus-visible,
+.contactBtn:focus-visible,
+.mobileMenuBtn:focus-visible,
+.mobileNavLink:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* 高性能GPU加速 */
+.nav,
+.navLink,
+.logo,
+.mobileMenu,
+.progressBar {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* 触摸设备优化 */
+@media (hover: none) and (pointer: coarse) {
+
+  .navLink:hover,
+  .logo:hover,
+  .contactBtn:hover {
+    transform: none;
+  }
+
+  .navLink:active {
+    transform: scale(0.95);
+  }
+
+  .logo:active {
+    transform: scale(0.98);
+  }
+
+  .contactBtn:active {
+    transform: scale(0.95);
+  }
+}

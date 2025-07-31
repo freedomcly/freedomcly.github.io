@@ -1,0 +1,418 @@
+.contactSection {
+  padding: 100px 20px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.contactSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header Styles */
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 20px 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 400;
+}
+
+/* Contact Grid */
+.contactGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
+.contactCard {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.contactCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s ease;
+}
+
+.contactCard:hover::before {
+  left: 100%;
+}
+
+.contactCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.contactCard:active {
+  transform: translateY(-4px);
+}
+
+/* Card Icon */
+.cardIcon {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: all 0.3s ease;
+}
+
+.email .cardIcon {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.github .cardIcon {
+  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+}
+
+.linkedin .cardIcon {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+}
+
+.iconEmoji {
+  font-size: 28px;
+  transition: transform 0.3s ease;
+}
+
+.contactCard:hover .iconEmoji {
+  transform: scale(1.2) rotate(10deg);
+}
+
+/* Card Content */
+.cardContent {
+  flex: 1;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 4px 0;
+}
+
+.cardValue {
+  font-size: 1rem;
+  color: #3b82f6;
+  margin: 0 0 8px 0;
+  font-weight: 500;
+}
+
+.cardDescription {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Card Arrow */
+.cardArrow {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #3b82f6;
+  transition: all 0.3s ease;
+}
+
+.contactCard:hover .cardArrow {
+  background: #3b82f6;
+  color: white;
+  transform: translateX(4px);
+}
+
+/* Primary CTA */
+.primaryCTA {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.primaryButton {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 20px 40px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+}
+
+.primaryButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.primaryButton:hover::before {
+  left: 100%;
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+}
+
+.primaryButton:active {
+  transform: translateY(0);
+}
+
+.buttonText {
+  transition: transform 0.3s ease;
+}
+
+.buttonIcon {
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.primaryButton:hover .buttonIcon {
+  transform: scale(1.2);
+}
+
+/* Footer Note */
+.footerNote {
+  text-align: center;
+}
+
+.footerNote p {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contactSection {
+    padding: 60px 20px;
+  }
+  
+  .header {
+    margin-bottom: 40px;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .subtitle {
+    font-size: 1.125rem;
+  }
+  
+  .contactGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  
+  .contactCard {
+    padding: 24px;
+    gap: 16px;
+  }
+  
+  .cardIcon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .iconEmoji {
+    font-size: 24px;
+  }
+  
+  .cardTitle {
+    font-size: 1.125rem;
+  }
+  
+  .primaryButton {
+    padding: 16px 32px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contactSection {
+    padding: 40px 16px;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .contactCard {
+    padding: 20px;
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+  
+  .cardContent {
+    text-align: center;
+  }
+  
+  .cardArrow {
+    transform: rotate(90deg);
+  }
+  
+  .contactCard:hover .cardArrow {
+    transform: rotate(90deg) translateX(4px);
+  }
+}
+
+/* Animation for scroll-in effect */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contactCard {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.contactCard:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.contactCard:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.contactCard:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* Dark mode support - 统一使用 data-theme 和 prefers-color-scheme */
+[data-theme="dark"] .contactSection,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .contactSection {
+    background: linear-gradient(135deg, var(--color-background) 0%, var(--color-background-secondary) 100%);
+  }
+}
+
+[data-theme="dark"] .title,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .title {
+    color: var(--color-text-primary);
+    background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-text-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+[data-theme="dark"] .subtitle,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .subtitle {
+    color: var(--color-text-tertiary);
+  }
+}
+
+[data-theme="dark"] .contactCard,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .contactCard {
+    background: var(--color-card-background);
+    border-color: var(--color-card-border);
+  }
+}
+
+[data-theme="dark"] .cardTitle,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .cardTitle {
+    color: var(--color-text-primary);
+  }
+}
+
+[data-theme="dark"] .cardDescription,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .cardDescription {
+    color: var(--color-text-tertiary);
+  }
+}
+
+[data-theme="dark"] .footerNote p,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .footerNote p {
+    color: var(--color-text-tertiary);
+  }
+}

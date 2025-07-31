@@ -1,0 +1,409 @@
+/* Project Card Container */
+.projectCard {
+  background: var(--color-surface);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all var(--duration-normal) var(--ease-out);
+  position: relative;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeInUp var(--duration-slow) var(--ease-out) forwards;
+  border: 1px solid var(--color-border);
+}
+
+.projectCard.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.projectCard:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-primary-lighter);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Image Container */
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  background: var(--color-background-secondary);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.imageWrapper.hovered {
+  transform: scale(1.05);
+}
+
+.projectImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all var(--duration-normal) var(--ease-out);
+  opacity: 0;
+}
+
+.projectImage.loaded {
+  opacity: 1;
+}
+
+/* Image Skeleton */
+.imageSkeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-background-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.skeletonShimmer {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--color-background-secondary) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-secondary) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Image Overlay */
+.imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-out);
+  backdrop-filter: blur(2px);
+}
+
+.imageOverlay.visible {
+  opacity: 1;
+}
+
+.overlayContent {
+  text-align: center;
+  color: white;
+  transform: translateY(10px);
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.imageOverlay.visible .overlayContent {
+  transform: translateY(0);
+}
+
+.previewText {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-2);
+}
+
+.zoomIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  margin: 0 auto;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.zoomIcon:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* Card Content */
+.cardContent {
+  padding: var(--space-6);
+}
+
+.projectTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-3);
+  line-height: var(--line-height-tight);
+}
+
+.projectDescription {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-5);
+  font-size: var(--font-size-base);
+}
+
+/* Technologies */
+.technologiesContainer {
+  margin-bottom: var(--space-6);
+}
+
+.technologiesLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.technologyTag {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-primary-lighter);
+  color: var(--color-primary-dark);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.technologyTag:hover {
+  background: var(--color-primary-light);
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Project Links */
+.projectLinks {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.projectLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  transition: all var(--duration-fast) var(--ease-out);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.projectLink:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.githubLink {
+  color: var(--color-text-primary);
+  border-color: var(--color-border-dark);
+}
+
+.githubLink:hover {
+  background: var(--color-text-primary);
+  color: var(--color-text-inverse);
+  border-color: var(--color-text-primary);
+}
+
+.liveLink {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.liveLink:hover {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* Featured Badge */
+.featuredBadge {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+  color: white;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-md);
+  z-index: 2;
+}
+
+/* Dark Theme Adjustments */
+[data-theme="dark"] .projectCard {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .projectCard:hover {
+  border-color: var(--color-primary);
+}
+
+[data-theme="dark"] .technologyTag {
+  background: rgba(37, 99, 235, 0.2);
+  color: var(--color-primary-light);
+}
+
+[data-theme="dark"] .technologyTag:hover {
+  background: var(--color-primary);
+  color: white;
+}
+
+[data-theme="dark"] .githubLink {
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .githubLink:hover {
+  background: var(--color-text-primary);
+  color: var(--color-background);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .imageContainer {
+    height: 200px;
+  }
+
+  .cardContent {
+    padding: var(--space-5);
+  }
+
+  .projectTitle {
+    font-size: var(--font-size-lg);
+  }
+
+  .projectDescription {
+    font-size: var(--font-size-sm);
+  }
+
+  .projectLinks {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .projectLink {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .cardContent {
+    padding: var(--space-4);
+  }
+
+  .technologies {
+    gap: var(--space-1);
+  }
+
+  .technologyTag {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--font-size-xs);
+  }
+
+  .featuredBadge {
+    top: var(--space-3);
+    right: var(--space-3);
+    padding: var(--space-1) var(--space-2);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .projectCard,
+  .imageWrapper,
+  .projectImage,
+  .imageOverlay,
+  .overlayContent,
+  .technologyTag,
+  .projectLink,
+  .zoomIcon {
+    transition: none;
+    animation: none;
+  }
+
+  .projectCard {
+    opacity: 1;
+    transform: none;
+  }
+
+  .projectCard:hover {
+    transform: none;
+  }
+
+  .imageWrapper.hovered {
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .projectCard {
+    border: 2px solid var(--color-text-primary);
+  }
+
+  .technologyTag {
+    background: var(--color-text-primary);
+    color: var(--color-background);
+    border: 1px solid var(--color-text-primary);
+  }
+
+  .projectLink {
+    border: 2px solid var(--color-text-primary);
+  }
+
+  .featuredBadge {
+    background: var(--color-text-primary);
+    color: var(--color-background);
+  }
+}

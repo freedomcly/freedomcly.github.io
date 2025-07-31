@@ -1,0 +1,204 @@
+.storyCard {
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: var(--delay, 0s);
+  margin-bottom: 30px;
+}
+
+.storyCard.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timeline {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  position: relative;
+}
+
+.timelineIndicator {
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+.timelineDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.visible .timelineDot {
+  box-shadow: 0 0 0 8px rgba(102, 126, 234, 0.3);
+  transform: scale(1.1);
+}
+
+.timelineLine {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 120px; /* 默认高度，会被JavaScript覆盖 */
+  background: linear-gradient(to bottom, #667eea, rgba(102, 126, 234, 0.3));
+  opacity: 0;
+  transition: opacity 0.6s ease, height 0.3s ease;
+  transition-delay: calc(var(--delay, 0s) + 0.3s);
+  z-index: 1;
+}
+
+.visible .timelineLine {
+  opacity: 1;
+}
+
+.cardContent {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 24px 28px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cardContent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cardContent:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.cardContent:hover::before {
+  opacity: 1;
+}
+
+.cardContent p {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #666;
+  font-weight: 300;
+}
+
+/* Dark mode - 统一使用 data-theme 和 prefers-color-scheme */
+[data-theme="dark"] .timelineDot,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .timelineDot {
+    background: var(--color-timeline-dot);
+    box-shadow: 0 0 0 4px rgba(79, 172, 254, 0.2);
+  }
+}
+
+[data-theme="dark"] .visible .timelineDot,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .visible .timelineDot {
+    box-shadow: 0 0 0 8px var(--color-timeline-dot-shadow);
+  }
+}
+
+[data-theme="dark"] .timelineLine,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .timelineLine {
+    background: var(--color-timeline-line);
+  }
+}
+
+[data-theme="dark"] .cardContent,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .cardContent {
+    background: var(--color-story-card-bg);
+    border: 1px solid var(--color-story-card-border);
+  }
+}
+
+[data-theme="dark"] .cardContent::before,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .cardContent::before {
+    background: var(--color-story-card-accent);
+  }
+}
+
+[data-theme="dark"] .cardContent p,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .cardContent p {
+    color: var(--color-text-secondary);
+  }
+}
+
+/* Chinese font */
+:global(.chineseFont) .cardContent p {
+  font-family: var(--font-chinese);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .timeline {
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  .timelineDot {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .timelineLine {
+    /* 高度由JavaScript动态设置，这里只调整位置 */
+    top: 14px;
+  }
+  
+  .cardContent {
+    padding: 20px 24px;
+  }
+  
+  .cardContent p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .timelineDot {
+    width: 12px;
+    height: 12px;
+    margin-top: 6px;
+  }
+  
+  .timelineLine {
+    /* 高度由JavaScript动态设置，这里只调整位置 */
+    top: 12px;
+  }
+  
+  .cardContent {
+    padding: 18px 20px;
+  }
+  
+  .cardContent p {
+    font-size: 0.95rem;
+  }
+}
