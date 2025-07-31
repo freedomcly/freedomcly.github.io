@@ -4,13 +4,11 @@ import matter from 'gray-matter';
 import { marked } from 'marked';
 import { remoteArticles } from './remote-articles';
 
-// 配置 marked 选项
 marked.setOptions({
-  gfm: true, // GitHub Flavored Markdown
-  breaks: true, // 允许换行
+  gfm: true,
+  breaks: true,
 });
 
-// 文章元数据接口
 export interface ArticleMeta {
   title: {
     zh: string;
@@ -23,14 +21,11 @@ export interface ArticleMeta {
     en: string;
   };
   tags: string[];
-  // 添加远程文章标记和URL字段
   isRemote?: boolean;
   remoteUrl?: string;
-  // 添加来源网站字段
   sourceSite?: string;
 }
 
-// 文章数据接口
 export interface ArticleData {
   slug: string;
   meta: ArticleMeta;
@@ -38,7 +33,6 @@ export interface ArticleData {
   htmlContent: string;
 }
 
-// 获取所有文章的slug列表
 export function getAllArticleSlugs(): string[] {
   const articlesDirectory = path.join(process.cwd(), 'content/articles');
   

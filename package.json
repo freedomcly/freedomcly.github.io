@@ -9,6 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "pages": "gh-pages -d out -f",
     "deploy": "next build && gh-pages -d out -f"
   },
   "dependencies": {
@@ -19,8 +20,7 @@
     "next": "15.3.2",
     "next-nprogress-bar": "^2.4.7",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "swiper": "^11.2.8"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

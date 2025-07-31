@@ -614,6 +614,18 @@
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   user-select: none;
+  /* 防止双击缩放 */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  /* 防止长按菜单 */
+  -webkit-touch-callout: none;
+  /* 防止拖拽 */
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
 }
 
 .fabButton::before {
@@ -655,21 +667,23 @@
 
 .fabBadge {
   position: absolute;
-  top: -4px;
-  right: -4px;
+  top: -6px;
+  right: -6px;
   background: #ff4757;
   color: white;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 600;
-  padding: 2px 6px;
-  border-radius: 10px;
-  min-width: 18px;
-  height: 18px;
+  padding: 3px 6px;
+  border-radius: 12px;
+  min-width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 8px rgba(255, 71, 87, 0.3);
   animation: badgePulse 2s infinite;
+  white-space: nowrap;
+  line-height: 1;
 }
 
 @keyframes badgePulse {
@@ -842,6 +856,18 @@
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   user-select: none;
+  /* 防止双击缩放 */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  /* 防止长按菜单 */
+  -webkit-touch-callout: none;
+  /* 防止拖拽 */
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
 }
 
 /* 移除复杂的动画效果，保持简约 */
@@ -1328,10 +1354,20 @@
     right: 20px;
     width: 48px;
     height: 48px;
+    overflow: visible;
   }
 
   .fabIcon {
     font-size: 1rem;
+  }
+
+  .fabBadge {
+    top: -4px;
+    right: -4px;
+    font-size: 0.6rem;
+    min-width: 18px;
+    height: 18px;
+    padding: 2px 5px;
   }
 
   .drawerContent {

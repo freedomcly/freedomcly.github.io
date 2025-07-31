@@ -1,10 +1,7 @@
-// Google Analytics配置
 export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID || '';
 
-// 检查是否在生产环境且有GA ID
 export const isGAEnabled = GA_TRACKING_ID && process.env.NODE_ENV === 'production';
 
-// 页面浏览事件
 export const pageview = (url: string) => {
   if (!isGAEnabled) return;
   
@@ -13,7 +10,6 @@ export const pageview = (url: string) => {
   });
 };
 
-// 自定义事件
 export const event = ({
   action,
   category,
@@ -34,9 +30,7 @@ export const event = ({
   });
 };
 
-// 预定义的事件类型
 export const trackEvent = {
-  // 文章相关
   articleView: (articleTitle: string, category: string) => {
     event({
       action: 'article_view',
@@ -62,7 +56,6 @@ export const trackEvent = {
     });
   },
   
-  // 交互相关
   languageSwitch: (fromLang: string, toLang: string) => {
     event({
       action: 'language_switch',
@@ -92,11 +85,10 @@ export const trackEvent = {
     event({
       action: 'article_list_expand',
       category: 'UI',
-      label: location, // 'desktop' or 'mobile'
+      label: location,
     });
   },
   
-  // 导航相关
   externalLinkClick: (url: string, linkText: string) => {
     event({
       action: 'external_link_click',
@@ -109,11 +101,10 @@ export const trackEvent = {
     event({
       action: 'contact_form_submit',
       category: 'Contact',
-      label: method, // 'email' or 'github'
+      label: method,
     });
   },
   
-  // 性能相关
   scrollDepth: (percentage: number, page: string) => {
     event({
       action: 'scroll_depth',
@@ -124,7 +115,6 @@ export const trackEvent = {
   },
 };
 
-// 类型声明
 declare global {
   interface Window {
     gtag: (

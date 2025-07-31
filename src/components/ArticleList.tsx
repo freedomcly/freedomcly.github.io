@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { trackEvent } from '@/lib/gtag';
+import {useState, useEffect} from 'react';
+import {useRouter} from 'next/navigation';
+import {useLanguage} from '@/contexts/LanguageContext';
+import {useScrollAnimation} from '@/hooks/useScrollAnimation';
+import {trackEvent} from '@/lib/gtag';
 
 import styles from '@/styles/components/ArticleList.module.css';
 
@@ -28,12 +28,12 @@ interface ArticleListProps {
   showSearch?: boolean;
 }
 
-export default function ArticleList({ 
-  articles = [], 
-  showCategories = true, 
-  showSearch = true 
+export default function ArticleList({
+  articles = [],
+  showCategories = true,
+  showSearch = true
 }: ArticleListProps) {
-  const { language } = useLanguage();
+  const {language} = useLanguage();
   const router = useRouter();
   const [filteredArticles, setFilteredArticles] = useState<Article[]>(articles);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -48,14 +48,15 @@ export default function ArticleList({
   const [isVisible, setIsVisible] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [animatingCards] = useState<Set<string>>(new Set());
+  const [animatingCards, setAnimatingCards] = useState<Set<string>>(new Set());
   const [shouldHide] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-
-  const [hasLeftFirstScreen, setHasLeftFirstScreen] = useState(false);
   const [userManuallyToggled, setUserManuallyToggled] = useState(false);
-  
-  const { elementRef: listRef, isVisible: isInView } = useScrollAnimation();
+  const [lastScrollTime, setLastScrollTime] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
+  const [fabClickTimeout, setFabClickTimeout] = useState<NodeJS.Timeout | null>(null);
+
+  const {elementRef: listRef, isVisible: isInView} = useScrollAnimation();
 
   // 使用传入的文章数据
   const finalArticles = articles;
@@ -65,43 +66,16 @@ export default function ArticleList({
     setFilteredArticles(finalArticles);
   }, [articles, language, finalArticles]);
 
-  // 滚动监听，检测首屏状态和故事部分
+  // 滚动监听，用于自动关闭文章列表
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      
-      // 检测是否在首屏（滚动距离小于一个屏幕高度的30%）
-      const isInFirstScreen = scrollY < windowHeight * 0.3;
-      
-      // 记录用户是否已经离开过首屏
-      if (!isInFirstScreen && !hasLeftFirstScreen) {
-        setHasLeftFirstScreen(true);
-      }
-      
-      // 只在初次加载且在首屏时自动展开，且用户没有手动操作过
-      if (isInFirstScreen && !hasLeftFirstScreen && !userManuallyToggled) {
-        setIsExpanded(true);
-        console.log('111')
-      }
-      // 如果离开首屏且用户没有手动展开，则折叠
-      else if (!isInFirstScreen && !userManuallyToggled) {
+      const currentTime = Date.now();
+      setLastScrollTime(currentTime);
+
+      // 如果用户正在滚动且没有hover，且没有手动切换过，则关闭列表
+      if (!isHovering && !userManuallyToggled && isExpanded) {
         setIsExpanded(false);
       }
-      
-      // 查找故事容器元素 - 使用更精确的选择器
-      // const storiesContainer = document.querySelector('[class*="storiesContainer"]');
-      // if (storiesContainer) {
-      //   const rect = storiesContainer.getBoundingClientRect();
-        
-      //   // 当故事部分进入视口上半部分时开始隐藏文章列表
-      //   // 使用更宽松的条件，让隐藏效果更早触发
-      //   if (rect.top <= windowHeight * 0.6 && rect.bottom >= windowHeight * 0.1) {
-      //     setShouldHide(true);
-      //   } else {
-      //     setShouldHide(false);
-      //   }
-      // }
     };
 
     // 使用节流优化滚动性能
@@ -116,12 +90,34 @@ export default function ArticleList({
       }
     };
 
-    window.addEventListener('scroll', optimizedScrollHandler, { passive: true });
-    handleScroll(); // 初始检查
-    
+    window.addEventListener('scroll', optimizedScrollHandler, {passive: true});
+
     return () => window.removeEventListener('scroll', optimizedScrollHandler);
-  }, []);
-  // TODO 学习
+  }, [isHovering, userManuallyToggled, isExpanded]);
+
+  // 滚动后自动关闭的定时器
+  useEffect(() => {
+    if (lastScrollTime === 0) return;
+
+    const timer = setTimeout(() => {
+      // 如果用户没有hover且没有手动操作，则关闭列表
+      if (!isHovering && !userManuallyToggled && isExpanded) {
+        setIsExpanded(false);
+      }
+    }, 2000); // 滚动停止2秒后自动关闭
+
+    return () => clearTimeout(timer);
+  }, [lastScrollTime, isHovering, userManuallyToggled, isExpanded]);
+
+  // 清理定时器
+  useEffect(() => {
+    return () => {
+      if (fabClickTimeout) {
+        clearTimeout(fabClickTimeout);
+      }
+    };
+  }, [fabClickTimeout]);
+
 
   useEffect(() => {
     let filtered = finalArticles;
@@ -155,7 +151,7 @@ export default function ArticleList({
     });
 
     setFilteredArticles(filtered);
-    
+
     // 跟踪搜索事件（只在有搜索查询时）
     if (searchQuery.trim()) {
       trackEvent.searchQuery(searchQuery, filtered.length);
@@ -164,14 +160,35 @@ export default function ArticleList({
 
   const categories = ['all', ...Array.from(new Set(finalArticles.map(article => article.category)))];
 
-  const handleArticleClick = (article: Article) => {
+  const handleArticleClick = (article: Article, event?: React.MouseEvent) => {
+    // 防止事件冒泡和默认行为
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    // 防止重复点击
+    if (animatingCards.has(article.slug || '')) {
+      return;
+    }
+
+    // 添加到动画集合中，防止重复点击
+    if (article.slug) {
+      setAnimatingCards(prev => new Set(prev).add(article.slug!));
+      setTimeout(() => {
+        setAnimatingCards(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(article.slug!);
+          return newSet;
+        });
+      }, 500);
+    }
+
     // 跟踪文章点击事件
     trackEvent.articleView(article.title, article.category);
-    
-    // 添加点击动画
-    // setAnimatingCards(prev => new Set(prev).add(article.slug));
+
     const thisArticle = article;
-    
+
     if (thisArticle.isRemote) {
       // 跟踪外链点击
       trackEvent.externalLinkClick(thisArticle.slug || '', article.title);
@@ -190,12 +207,17 @@ export default function ArticleList({
     }
   };
 
-  const setHoveredTrue = () => {
+  const handleMouseEnter = () => {
+    setIsHovering(true);
     setIsExpanded(true);
   }
 
-  const setHoveredFalse = () => {
-    setIsExpanded(false);
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    // 如果用户没有手动切换过，则在离开hover时关闭
+    if (!userManuallyToggled) {
+      setIsExpanded(false);
+    }
   }
 
   const handleCategoryChange = (category: string) => {
@@ -236,13 +258,12 @@ export default function ArticleList({
   return (
     <>
       {/* 桌面端侧边文章列表 */}
-      <div 
+      <div
         ref={listRef}
-        className={`${styles.desktopList} ${language === 'zh' ? styles.chineseFont : ''} ${
-          isInView ? styles.fadeInUp : ''
-        } ${shouldHide ? styles.hidden : ''} ${!isExpanded ? styles.collapsed : ''}`}
-        onMouseLeave={() => setHoveredFalse()}
-        onMouseEnter={() => setHoveredTrue()}
+        className={`${styles.desktopList} ${language === 'zh' ? styles.chineseFont : ''} ${isInView ? styles.fadeInUp : ''
+          } ${shouldHide ? styles.hidden : ''} ${!isExpanded ? styles.collapsed : ''}`}
+        onMouseLeave={handleMouseLeave}
+        onMouseEnter={handleMouseEnter}
       >
         {/* 展开状态 */}
         <div className={`${styles.listContent} ${!isExpanded ? styles.fadeOut : ''}`}>
@@ -253,7 +274,7 @@ export default function ArticleList({
                 {language === 'zh' ? '文章列表' : 'Articles'}
                 <span className={styles.articleCount}>({filteredArticles.length})</span>
               </h3>
-              <button
+              {/* <button
                 className={styles.toggleButton}
                 onClick={toggleExpanded}
                 aria-label={isExpanded ? 'Collapse articles' : 'Expand articles'}
@@ -265,9 +286,9 @@ export default function ArticleList({
                 <span className={`${styles.toggleIcon} ${isExpanded ? styles.expanded : ''}`}>
                   {isExpanded ? '−' : '+'}
                 </span>
-              </button>
+              </button> */}
             </div>
-            
+
             {showSearch && (
               <div className={`${styles.searchBox} ${isSearchFocused ? styles.searchFocused : ''}`}>
                 <div className={styles.searchIcon}>🔍</div>
@@ -281,7 +302,7 @@ export default function ArticleList({
                   className={styles.searchInput}
                 />
                 {searchQuery && (
-                  <button 
+                  <button
                     className={styles.clearSearch}
                     onClick={() => setSearchQuery('')}
                     aria-label="Clear search"
@@ -327,11 +348,10 @@ export default function ArticleList({
                 {categories.map((category, index) => (
                   <button
                     key={category}
-                    className={`${styles.categoryBtn} ${
-                      selectedCategory === category ? styles.active : ''
-                    }`}
+                    className={`${styles.categoryBtn} ${selectedCategory === category ? styles.active : ''
+                      }`}
                     onClick={() => handleCategoryChange(category)}
-                    style={{ animationDelay: `${index * 50}ms` }}
+                    style={{animationDelay: `${index * 50}ms`}}
                   >
                     {category === 'all' ? (language === 'zh' ? '全部' : 'All') : category}
                   </button>
@@ -352,12 +372,11 @@ export default function ArticleList({
               filteredArticles.map((article, index) => (
                 <article
                   key={article.slug}
-                  className={`${styles.articleCard} ${
-                    article.slug && animatingCards.has(article.slug) ? styles.cardClicked : ''
-                  }`}
-                  onClick={() => handleArticleClick(article)}
+                  className={`${styles.articleCard} ${article.slug && animatingCards.has(article.slug) ? styles.cardClicked : ''
+                    }`}
+                  onClick={(e) => handleArticleClick(article, e)}
                   onMouseEnter={() => handleArticleHover(article)}
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  style={{animationDelay: `${index * 100}ms`}}
                 >
                   <div className={styles.articleHeader}>
                     <div className={styles.articleMeta}>
@@ -406,7 +425,7 @@ export default function ArticleList({
           <button
             className={styles.collapsedToggle}
             onClick={toggleExpanded}
-            onMouseEnter={() => setHoveredTrue()}  // 添加鼠标进入事件
+            onMouseEnter={handleMouseEnter}
             aria-label="Expand articles"
             title={language === 'zh' ? '展开列表' : 'Expand'}
           >
@@ -419,18 +438,32 @@ export default function ArticleList({
       <div className={`${styles.mobileList} ${shouldHide ? styles.hidden : ''}`}>
         <button
           className={`${styles.fabButton} ${isMobileOpen ? styles.fabOpen : ''}`}
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // 防止重复点击
+            if (fabClickTimeout) {
+              return;
+            }
+
             const wasOpen = isMobileOpen;
             setIsMobileOpen(!isMobileOpen);
             if (!isExpanded) {
               setIsExpanded(true);
               setUserManuallyToggled(true);
             }
-            
+
             // 跟踪文章列表展开事件
             if (!wasOpen) {
               trackEvent.articleListExpand('mobile');
             }
+
+            // 设置防重复点击的超时
+            const timeout = setTimeout(() => {
+              setFabClickTimeout(null);
+            }, 300);
+            setFabClickTimeout(timeout);
           }}
           aria-label={language === 'zh' ? '文章列表' : 'Article List'}
         >
@@ -456,7 +489,7 @@ export default function ArticleList({
               ✕
             </button>
           </div>
-          
+
           <div className={styles.drawerContent}>
             {showSearch && (
               <div className={`${styles.mobileSearch} ${isSearchFocused ? styles.searchFocused : ''}`}>
@@ -471,7 +504,7 @@ export default function ArticleList({
                   className={styles.searchInput}
                 />
                 {searchQuery && (
-                  <button 
+                  <button
                     className={styles.clearSearch}
                     onClick={() => setSearchQuery('')}
                     aria-label="Clear search"
@@ -517,18 +550,17 @@ export default function ArticleList({
                 {categories.map((category, index) => (
                   <button
                     key={category}
-                    className={`${styles.categoryBtn} ${
-                      selectedCategory === category ? styles.active : ''
-                    }`}
+                    className={`${styles.categoryBtn} ${selectedCategory === category ? styles.active : ''
+                      }`}
                     onClick={() => handleCategoryChange(category)}
-                    style={{ animationDelay: `${index * 50}ms` }}
+                    style={{animationDelay: `${index * 50}ms`}}
                   >
                     {category === 'all' ? (language === 'zh' ? '全部' : 'All') : category}
                   </button>
                 ))}
               </div>
             )}
-            
+
             <div className={styles.mobileArticlesList}>
               {filteredArticles.length === 0 ? (
                 <div className={styles.emptyState}>
@@ -541,12 +573,11 @@ export default function ArticleList({
                 filteredArticles.map((article, index) => (
                   <article
                     key={article.slug}
-                    className={`${styles.mobileArticleCard} ${
-                      article.slug && animatingCards.has(article.slug) ? styles.cardClicked : ''
-                    }`}
-                    onClick={() => handleArticleClick(article)}
+                    className={`${styles.mobileArticleCard} ${article.slug && animatingCards.has(article.slug) ? styles.cardClicked : ''
+                      }`}
+                    onClick={(e) => handleArticleClick(article, e)}
                     onMouseEnter={() => handleArticleHover(article)}
-                    style={{ animationDelay: `${index * 100}ms` }}
+                    style={{animationDelay: `${index * 100}ms`}}
                   >
                     <div className={styles.articleHeader}>
                       <div className={styles.articleMeta}>
@@ -586,7 +617,7 @@ export default function ArticleList({
 
         {/* 遮罩层 */}
         {isMobileOpen && (
-          <div 
+          <div
             className={`${styles.overlay} ${isMobileOpen ? styles.overlayVisible : ''}`}
             onClick={() => setIsMobileOpen(false)}
           />

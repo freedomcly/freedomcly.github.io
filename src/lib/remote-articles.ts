@@ -1,4 +1,3 @@
-// 添加TypeScript接口定义
 interface RemoteArticleMeta {
   title: {
     zh: string;
@@ -22,7 +21,6 @@ interface RemoteArticle {
   meta: RemoteArticleMeta;
 }
 
-// 优化后的远程文章数组
 export const remoteArticles: RemoteArticle[] = [{
   slug: 'https://github.com/freedomcly/blog/blob/master/articles/%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E4%BC%98%E5%8C%96/%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E4%BC%98%E5%8C%96.md',
   meta: {

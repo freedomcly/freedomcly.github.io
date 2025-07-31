@@ -414,11 +414,11 @@
   }
 
   .nav {
-    padding: var(--space-4) 0;
+    padding: var(--space-2) 0;
   }
 
   .nav.scrolled {
-    padding: var(--space-3) 0;
+    padding: var(--space-1) 0;
   }
 }
 
@@ -428,7 +428,15 @@
   }
 
   .logoText {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base);
+  }
+
+  .nav {
+    padding: var(--space-1) 0;
+  }
+
+  .nav.scrolled {
+    padding: var(--space-1) 0;
   }
 
   .mobileMenu {

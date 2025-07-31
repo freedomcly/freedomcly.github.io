@@ -1,7 +1,7 @@
 'use client';
 
 import React, {createContext, useContext, useState, useEffect} from 'react';
-import { trackEvent } from '@/lib/gtag';
+import {trackEvent} from '@/lib/gtag';
 
 type Language = 'en' | 'zh';
 
@@ -100,7 +100,7 @@ const translations = {
     'about.story3': '✨ 2021 年辞去 995 的工作，开始数字游民经历，在 upwork 接单，不断地沉淀技术优势，并且紧跟海外技术趋势。这极大拓展了我的技术广度和解决问题的独立性，从前端走向全栈。',
     'about.story4': '🌟 2021-2025 年数字游民期间，寻找技术与商业的结合。利用自身优势，独立搭建跨境电商运营平台，成功独立经营多家跨境电商店铺。',
     'about.story5': '🤝 为何重新出发？我已经阶段性完成了自我的探索，同时因为最近 AI 到了大规模应用阶段，我非常希望能寻找同伴组队，参与本次迭代。我比曾经的自己更加成熟也更加抗压，希望能成为一个坚定可靠的队友。',
-    'about.philosophy': '珍惜当下每一分钟，去构建去创造，是最大的幸福来源，也是最大的风险规避。',
+    'about.philosophy': '珍惜当下每一分钟，是最大的幸福来源，也是最大的风险规避。',
     'about.caption': '典型的 INTP：好奇 理性 开放 独立',
 
     // AI Stories section
@@ -110,7 +110,7 @@ const translations = {
     'aiStories.story3': '一年前我把 gemini 和 openai 接入了我负责的电商运营平台，用来自动生成多国家的商品标题、描述，并用 AI 自动定价。',
     'aiStories.story4': '几个月前参与制作建筑行业 AI agent（基于开源前后端框架 open-webui），它的前端部分是 svelte 框架，与我最熟悉的 vue 类似，因此我上手比较容易。整个项目让我体验到参与创建 Agent 应用的乐趣和成就感，同时体会到我所熟悉的人机交互范式在改变，人机交互不再局限于人与界面的交互。',
     'aiStories.story5': '最近我把 cursor 和 kiro 变成了我的 TARS，我相信各行各业都会被 AI 重塑。',
-    'aiStories.intro': '认识 AI 对互联网行业的“二向箔”打击，其实二维化早已开始了，离它越近越先改变。',
+    'aiStories.intro': '经历了 AI 对互联网行业的“二向箔”打击，其实二维化早已开始了，离它越近越先改变。',
     'skills.title': '技能',
     'skills.language': '编程语言',
     'skills.frameworks': '框架',
@@ -165,7 +165,7 @@ export function LanguageProvider({children}: {children: React.ReactNode}) {
     const previousLanguage = language;
     setLanguage(lang);
     localStorage.setItem('language', lang);
-    
+
     // 跟踪语言切换事件
     if (previousLanguage !== lang) {
       trackEvent.languageSwitch(previousLanguage, lang);
