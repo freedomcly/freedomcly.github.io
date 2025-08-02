@@ -108,6 +108,27 @@
   50% { transform: rotate(45deg) scale(1.1); opacity: 0.4; }
 }
 
+@keyframes gentleShimmer {
+  0%, 100% { 
+    background: linear-gradient(45deg, 
+      rgba(102, 126, 234, 0.1), 
+      rgba(118, 75, 162, 0.1), 
+      rgba(240, 147, 251, 0.1), 
+      rgba(245, 87, 108, 0.1)
+    );
+    transform: scale(1);
+  }
+  50% { 
+    background: linear-gradient(45deg, 
+      rgba(102, 126, 234, 0.2), 
+      rgba(118, 75, 162, 0.2), 
+      rgba(240, 147, 251, 0.2), 
+      rgba(245, 87, 108, 0.2)
+    );
+    transform: scale(1.01);
+  }
+}
+
 /* Hero Content */
 .heroContent {
   text-align: center;
@@ -137,18 +158,47 @@
   position: relative;
   display: inline-block;
   cursor: pointer;
-}
-
-.avatar {
   width: 200px;
   height: 200px;
   border-radius: 50%;
+  background: linear-gradient(45deg, 
+    rgba(102, 126, 234, 0.15), 
+    rgba(118, 75, 162, 0.15), 
+    rgba(240, 147, 251, 0.15), 
+    rgba(245, 87, 108, 0.15)
+  );
+  padding: 3px;
+  animation: gentleShimmer 4s ease-in-out infinite;
+}
+
+.avatarWrapper::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, 
+    rgba(102, 126, 234, 0.3), 
+    rgba(118, 75, 162, 0.3), 
+    rgba(240, 147, 251, 0.3), 
+    rgba(245, 87, 108, 0.3)
+  );
+  z-index: 1;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
   object-fit: cover;
-  border: 4px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  z-index: 2;
+  z-index: 3;
+  background: transparent;
 }
 
 .avatarGlow {
@@ -194,19 +244,13 @@
   animation: fadeInUp 1s ease-out 0.6s both;
 }
 
-.cursor {
-  color: #667eea;
-  font-weight: 300;
+.typewriterText {
+  /* 继承父元素的样式 */
 }
 
-.cursor.blinking {
-  animation: blink 1s infinite;
-}
 
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}
+
+
 
 /* Subtitle */
 .subtitle {
@@ -352,9 +396,15 @@
     min-height: 90vh;
   }
 
-  .avatar {
+  .avatarWrapper {
     width: 150px;
     height: 150px;
+  }
+
+  .avatarWrapper {
+    width: 150px;
+    height: 150px;
+    padding: 2px;
   }
 
   .greeting {
@@ -423,7 +473,7 @@
   .triangle,
   .square,
   .avatarGlow,
-  .cursor.blinking {
+  .avatarWrapper {
     animation: none;
   }
 

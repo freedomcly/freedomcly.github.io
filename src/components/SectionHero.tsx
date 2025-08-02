@@ -1,37 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { useLanguage } from '@/contexts/LanguageContext';
+import React from 'react';
+import {useLanguage} from '@/contexts/LanguageContext';
+import TypewriterText from './TypewriterText';
+import OptimizedImage from './OptimizedImage';
 import styles from '@/styles/components/SectionHero.module.css';
 
 const SectionHero: React.FC = () => {
-  const { t, language } = useLanguage();
-  const [displayedText, setDisplayedText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTyping, setIsTyping] = useState(true);
-
-  // Typewriter effect for the main title
-  const titleText = t('hero.title1');
-  
-  useEffect(() => {
-    if (currentIndex < titleText.length && isTyping) {
-      const timeout = setTimeout(() => {
-        setDisplayedText(prev => prev + titleText[currentIndex]);
-        setCurrentIndex(prev => prev + 1);
-      }, 100);
-      return () => clearTimeout(timeout);
-    } else if (currentIndex >= titleText.length) {
-      setIsTyping(false);
-    }
-  }, [currentIndex, titleText, isTyping]);
-
-  // Reset typewriter when language changes
-  useEffect(() => {
-    setDisplayedText('');
-    setCurrentIndex(0);
-    setIsTyping(true);
-  }, [language]);
+  const {t, language} = useLanguage();
 
   const fontClass = language === 'zh' ? styles.chineseFont : styles.englishFont;
 
@@ -39,7 +15,7 @@ const SectionHero: React.FC = () => {
     <section id="home" className={`${styles.sectionHero} ${fontClass}`}>
       {/* Gradient Background */}
       <div className={styles.gradientBackground}></div>
-      
+
       {/* Geometric Decorations */}
       <div className={styles.geometricDecorations}>
         <div className={styles.circle1}></div>
@@ -52,13 +28,14 @@ const SectionHero: React.FC = () => {
         {/* Avatar with hover animations */}
         <div className={styles.avatarContainer}>
           <div className={styles.avatarWrapper}>
-            <Image
-              src="/images/tracy.jpg"
+            <OptimizedImage
+              src="/images/tracy-400.jpg"
               alt="Tracy Cui"
               width={200}
               height={200}
               className={styles.avatar}
               priority
+              quality={85}
             />
             <div className={styles.avatarGlow}></div>
           </div>
@@ -71,8 +48,12 @@ const SectionHero: React.FC = () => {
 
         {/* Typewriter Title */}
         <h1 className={styles.mainTitle}>
-          {displayedText}
-          <span className={`${styles.cursor} ${isTyping ? styles.blinking : ''}`}>|</span>
+          <TypewriterText
+            text={t('hero.title1')}
+            speed={100}
+            resetTrigger={language}
+            className={styles.typewriterText}
+          />
         </h1>
 
         {/* Subtitle */}
@@ -92,12 +73,12 @@ const SectionHero: React.FC = () => {
 
         {/* Main Action Button */}
         <div className={styles.ctaContainer}>
-          <button 
+          <button
             className={styles.ctaButton}
             onClick={() => {
               const contactElement = document.getElementById('contact');
               if (contactElement) {
-                contactElement.scrollIntoView({ behavior: 'smooth' });
+                contactElement.scrollIntoView({behavior: 'smooth'});
               }
             }}
             aria-label="Go to contact section"

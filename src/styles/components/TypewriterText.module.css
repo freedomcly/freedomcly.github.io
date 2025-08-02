@@ -1,0 +1,35 @@
+/* 打字机光标样式 */
+.cursor {
+  color: #667eea;
+  font-weight: 300;
+  animation: none;
+}
+
+.cursor.blinking {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* 深色模式 */
+[data-theme="dark"] .cursor,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .cursor {
+    color: #4facfe;
+  }
+}
+
+/* 动画性能优化 */
+@media (prefers-reduced-motion: reduce) {
+  .cursor.blinking {
+    animation: none;
+    opacity: 1;
+  }
+}

@@ -55,7 +55,7 @@ export default function Home() {
             srcKey: 'feStories.photo.src',
             altKey: 'feStories.photo.alt',
             width: 400,
-            height: 500,
+            height: 400,
             captionKey: 'feStories.caption'
           }}
         />
@@ -79,22 +79,58 @@ export default function Home() {
       <section id="skills" className={`${styles.skillswrap}`}>
         <div className='lg:w-[1000px] h-[170px] flex items-center justify-center space-x-6'>
           <div className={styles.logo} title="vue">
-            <Image src="/tech_logos/vue.svg" alt="Vue.js" width={60} height={60} />
+            <Image 
+              src="/tech_logos/vue.svg" 
+              alt="Vue.js" 
+              width={60} 
+              height={60}
+              loading="lazy"
+            />
           </div>
           <div className={styles.logo} title="react">
-            <Image src="/tech_logos/react.svg" alt="React" width={60} height={60} />
+            <Image 
+              src="/tech_logos/react.svg" 
+              alt="React" 
+              width={60} 
+              height={60}
+              loading="lazy"
+            />
           </div>
           <div className={styles.logo} title="nuxt">
-            <Image src="/tech_logos/nuxt.svg" alt="Nuxt.js" width={60} height={60} />
+            <Image 
+              src="/tech_logos/nuxt.svg" 
+              alt="Nuxt.js" 
+              width={60} 
+              height={60}
+              loading="lazy"
+            />
           </div>
           <div className={styles.logo} title="typescript">
-            <Image src="/tech_logos/typescript.svg" alt="TypeScript" width={60} height={60} />
+            <Image 
+              src="/tech_logos/typescript.svg" 
+              alt="TypeScript" 
+              width={60} 
+              height={60}
+              loading="lazy"
+            />
           </div>
           <div className={styles.logo} title="mongodb">
-            <Image src="/tech_logos/mongodb.svg" alt="MongoDB" width={60} height={60} />
+            <Image 
+              src="/tech_logos/mongodb.svg" 
+              alt="MongoDB" 
+              width={60} 
+              height={60}
+              loading="lazy"
+            />
           </div>
           <div className={styles.logo} title="github">
-            <Image src="/tech_logos/github.svg" alt="GitHub" width={60} height={60} />
+            <Image 
+              src="/tech_logos/github.svg" 
+              alt="GitHub" 
+              width={60} 
+              height={60}
+              loading="lazy"
+            />
           </div>
         </div>
       </section>

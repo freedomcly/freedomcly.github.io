@@ -1,8 +1,8 @@
 'use client';
-import Image from 'next/image';
 import {useLanguage} from '@/contexts/LanguageContext';
 import {useScrollAnimation} from '@/hooks/useScrollAnimation';
 import StoryCard from './StoryCard';
+import OptimizedImage from './OptimizedImage';
 import styles from '@/styles/components/SectionStory.module.css';
 
 interface PhotoConfig {
@@ -19,7 +19,6 @@ interface SectionStoryProps {
     journeyKey: string;
     storiesKey: string;
     photo?: PhotoConfig;
-    philosophyKey?: string;
 }
 
 export default function SectionStory({
@@ -28,7 +27,6 @@ export default function SectionStory({
     journeyKey,
     storiesKey,
     photo,
-    philosophyKey
 }: SectionStoryProps) {
     const {t, tArray} = useLanguage();
 
@@ -81,13 +79,15 @@ export default function SectionStory({
                                     className={`${styles.photoContainer} ${photoVisible ? styles.visible : ''}`}
                                 >
                                     <div className={styles.photoWrapper}>
-                                        <Image
+                                        <OptimizedImage
                                             src={t(photo.srcKey)}
                                             alt={t(photo.altKey)}
                                             width={photo.width}
                                             height={photo.height}
                                             className={styles.personalPhoto}
-                                            priority
+                                            quality={85}
+                                            placeholder="blur"
+                                            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R+Kcp4="
                                         />
                                         <div className={styles.photoOverlay}></div>
                                     </div>

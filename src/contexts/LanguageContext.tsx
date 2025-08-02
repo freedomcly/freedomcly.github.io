@@ -45,7 +45,7 @@ const translations = {
     ],
     'feStories.philosophy': 'Cherishing every minute of the present to build and create is the greatest source of happiness and the greatest risk mitigation.',
     'feStories.caption': 'Typical INTP: Curious, Rational, Open, Independent',
-    'feStories.photo.src': '/images/me.jpg',
+    'feStories.photo.src': '/images/me-800.jpg',
     'feStories.photo.alt': 'Tracy Cui - Personal Photo',
 
     // AI Stories section
@@ -111,7 +111,7 @@ const translations = {
     ],
     'feStories.philosophy': '珍惜当下每一分钟，是最大的幸福来源，也是最大的风险规避。',
     'feStories.caption': '典型的 INTP：好奇 理性 开放 独立',
-    'feStories.photo.src': '/images/me.jpg',
+    'feStories.photo.src': '/images/me-800.jpg',
     'feStories.photo.alt': 'Tracy Cui - 个人照片',
 
     // AI Stories section
