@@ -11,8 +11,9 @@ const nextConfig: NextConfig = {
   compress: true,
   // 启用实验性功能以获得更好的性能
   experimental: {
-    optimizePackageImports: ['next/image'],
+    optimizePackageImports: ['next/image', 'react', 'react-dom'],
   },
+  trailingSlash: true, // 静态导出建议开启
 };
 
 export default nextConfig;

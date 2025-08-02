@@ -26,10 +26,7 @@ export default function GoogleAnalytics() {
             gtag('config', '${GA_TRACKING_ID}', {
               page_location: window.location.href,
               page_title: document.title,
-              // 隐私设置
               anonymize_ip: true,
-              allow_google_signals: false,
-              allow_ad_personalization_signals: false,
             });
           `,
         }}
