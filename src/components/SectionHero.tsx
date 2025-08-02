@@ -3,9 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
-import styles from '@/styles/components/HeroSection.module.css';
+import styles from '@/styles/components/SectionHero.module.css';
 
-const HeroSection: React.FC = () => {
+const SectionHero: React.FC = () => {
   const { t, language } = useLanguage();
   const [displayedText, setDisplayedText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -36,7 +36,7 @@ const HeroSection: React.FC = () => {
   const fontClass = language === 'zh' ? styles.chineseFont : styles.englishFont;
 
   return (
-    <section id="home" className={`${styles.heroSection} ${fontClass}`}>
+    <section id="home" className={`${styles.sectionHero} ${fontClass}`}>
       {/* Gradient Background */}
       <div className={styles.gradientBackground}></div>
       
@@ -111,4 +111,4 @@ const HeroSection: React.FC = () => {
   );
 };
 
-export default HeroSection;
+export default SectionHero;

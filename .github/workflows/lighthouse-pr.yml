@@ -1,0 +1,86 @@
+name: Lighthouse CI - PR Comment
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build project for static export
+        run: |
+          npm run build
+          
+      - name: Start static server
+        run: |
+          npx serve -s out -l 8080 &
+          sleep 5
+        env:
+          CI: true
+          
+      - name: Wait for server
+        run: |
+          npx wait-on http://localhost:8080 --timeout 60000
+          
+      - name: Run Lighthouse CI
+        id: lighthouse
+        run: |
+          npm install -g @lhci/cli@0.12.x
+          lhci autorun --config=lighthouserc.cjs --upload.target=temporary-public-storage || echo "Lighthouse CI completed with warnings"
+          
+      - name: Comment PR with Lighthouse results
+        uses: actions/github-script@v7
+        if: github.event_name == 'pull_request'
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            
+            // 读取Lighthouse结果
+            const resultsPath = '.lighthouseci';
+            if (fs.existsSync(resultsPath)) {
+              const manifestPath = path.join(resultsPath, 'manifest.json');
+              if (fs.existsSync(manifestPath)) {
+                const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+                
+                let comment = '## 🚀 Lighthouse CI Results\n\n';
+                
+                manifest.forEach((result, index) => {
+                  const summary = result.summary;
+                  const url = result.url;
+                  
+                  comment += `### 📊 ${url}\n\n`;
+                  comment += `| Metric | Score |\n`;
+                  comment += `|--------|-------|\n`;
+                  comment += `| 🎯 Performance | ${Math.round(summary.performance * 100)}/100 |\n`;
+                  comment += `| ♿ Accessibility | ${Math.round(summary.accessibility * 100)}/100 |\n`;
+                  comment += `| 💡 Best Practices | ${Math.round(summary['best-practices'] * 100)}/100 |\n`;
+                  comment += `| 🔍 SEO | ${Math.round(summary.seo * 100)}/100 |\n\n`;
+                });
+                
+                comment += '---\n';
+                comment += '*Lighthouse CI ran on every PR to ensure performance standards.*';
+                
+                // 发布评论
+                github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: comment
+                });
+              }
+            }

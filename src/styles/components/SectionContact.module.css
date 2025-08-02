@@ -1,4 +1,4 @@
-.contactSection {
+.sectionContact {
   padding: 100px 20px;
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   position: relative;
@@ -6,7 +6,7 @@
   width: 100%;
 }
 
-.contactSection::before {
+.sectionContact::before {
   content: '';
   position: absolute;
   top: 0;
@@ -259,7 +259,7 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .contactSection {
+  .sectionContact {
     padding: 60px 20px;
   }
   
@@ -306,7 +306,7 @@
 }
 
 @media (max-width: 480px) {
-  .contactSection {
+  .sectionContact {
     padding: 40px 16px;
   }
   
@@ -363,9 +363,9 @@
 }
 
 /* Dark mode support - 统一使用 data-theme 和 prefers-color-scheme */
-[data-theme="dark"] .contactSection,
+[data-theme="dark"] .sectionContact,
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .contactSection {
+  :root:not([data-theme]) .sectionContact {
     background: linear-gradient(135deg, var(--color-background) 0%, var(--color-background-secondary) 100%);
   }
 }

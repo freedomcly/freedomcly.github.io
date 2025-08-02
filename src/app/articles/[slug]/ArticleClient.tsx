@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import {useLanguage} from '@/contexts/LanguageContext';
 import styles from '@/styles/pages/article.module.css';
+import Navigation from '@/components/Navigation';
 
 interface ArticleMeta {
   title: {
@@ -49,8 +50,10 @@ export default function ArticleClient({article}: ArticleClientProps) {
   };
 
   return (
-    <article className={`${styles.articlePage} ${language === 'zh' ? styles.chineseFont : ''}`}>
-      <div className={styles.container}>
+    <>
+      <Navigation />
+      <article className={`${styles.articlePage} ${language === 'zh' ? styles.chineseFont : ''}`}>
+        <div className={styles.container}>
         {/* 文章头部 */}
         <header className={styles.articleHeader}>
           <div className={styles.breadcrumb}>
@@ -108,7 +111,8 @@ export default function ArticleClient({article}: ArticleClientProps) {
             </Link>
           </div>
         </footer>
-      </div>
-    </article>
+        </div>
+      </article>
+    </>
   );
 }

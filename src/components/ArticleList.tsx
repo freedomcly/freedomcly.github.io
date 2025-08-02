@@ -56,6 +56,9 @@ export default function ArticleList({
   const [isHovering, setIsHovering] = useState(false);
   const [fabClickTimeout, setFabClickTimeout] = useState<NodeJS.Timeout | null>(null);
 
+  // iOS检测
+  const isIOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
   const {elementRef: listRef, isVisible: isInView} = useScrollAnimation();
 
   // 使用传入的文章数据
@@ -434,15 +437,17 @@ export default function ArticleList({
         </div>
       </div>
 
-      {/* 移动端悬浮按钮 */}
-      <div className={`${styles.mobileList} ${shouldHide ? styles.hidden : ''}`}>
+      {/* 移动端悬浮按钮 - 已移至导航栏 */}
+      <div className={`${styles.mobileList} ${styles.hiddenOnMobile} ${shouldHide ? styles.hidden : ''}`}>
         <button
           className={`${styles.fabButton} ${isMobileOpen ? styles.fabOpen : ''}`}
-          onClick={(e) => {
+          onTouchStart={isIOS ? (e) => {
+            e.preventDefault();
+          } : undefined}
+          onTouchEnd={isIOS ? (e) => {
             e.preventDefault();
             e.stopPropagation();
 
-            // 防止重复点击
             if (fabClickTimeout) {
               return;
             }
@@ -454,16 +459,42 @@ export default function ArticleList({
               setUserManuallyToggled(true);
             }
 
-            // 跟踪文章列表展开事件
             if (!wasOpen) {
               trackEvent.articleListExpand('mobile');
             }
 
-            // 设置防重复点击的超时
+            const timeout = setTimeout(() => {
+              setFabClickTimeout(null);
+            }, 500);
+            setFabClickTimeout(timeout);
+          } : undefined}
+          onClick={!isIOS ? (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (fabClickTimeout) {
+              return;
+            }
+
+            const wasOpen = isMobileOpen;
+            setIsMobileOpen(!isMobileOpen);
+            if (!isExpanded) {
+              setIsExpanded(true);
+              setUserManuallyToggled(true);
+            }
+
+            if (!wasOpen) {
+              trackEvent.articleListExpand('mobile');
+            }
+
             const timeout = setTimeout(() => {
               setFabClickTimeout(null);
             }, 300);
             setFabClickTimeout(timeout);
+          } : (e) => {
+            // iOS上阻止click事件
+            e.preventDefault();
+            e.stopPropagation();
           }}
           aria-label={language === 'zh' ? '文章列表' : 'Article List'}
         >

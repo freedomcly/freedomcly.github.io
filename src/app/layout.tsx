@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import {Suspense} from 'react';
 import '@/styles/common/globals.css';
+import '@/styles/globals-scroll-lock.css';
 import {LanguageProvider} from '@/contexts/LanguageContext';
 import {ThemeProvider} from '@/contexts/ThemeContext';
 import GoogleAnalytics from '@/components/GoogleAnalytics';

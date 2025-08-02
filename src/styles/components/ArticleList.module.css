@@ -609,23 +609,21 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
-  /* 移动端触摸优化 */
+  /* iOS 触摸优化 */
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
-  user-select: none;
-  /* 防止双击缩放 */
   -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  /* 防止长按菜单 */
+  user-select: none;
+  /* iOS Safari 特定优化 */
+  -webkit-appearance: none;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  /* 防止iOS双击缩放 */
+  -ms-touch-action: manipulation;
+  /* 防止iOS长按菜单 */
   -webkit-touch-callout: none;
-  /* 防止拖拽 */
   -webkit-user-drag: none;
-  -khtml-user-drag: none;
-  -moz-user-drag: none;
-  -o-user-drag: none;
-  user-drag: none;
 }
 
 .fabButton::before {
@@ -1345,6 +1343,11 @@
 
   .mobileList {
     display: block;
+  }
+
+  /* 在移动端隐藏FAB按钮，因为已集成到导航栏 */
+  .hiddenOnMobile {
+    display: none !important;
   }
 }
 

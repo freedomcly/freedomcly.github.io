@@ -1,7 +1,6 @@
 'use client';
-
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { useEffect, useRef } from 'react';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import styles from '@/styles/components/StoryCard.module.css';
 
 interface StoryCardProps {

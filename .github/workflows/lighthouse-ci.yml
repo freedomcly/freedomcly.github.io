@@ -1,0 +1,61 @@
+name: Lighthouse CI
+
+on:
+  # 在push到main分支时运行
+  push:
+    branches: [ main ]
+  # 在Pull Request时运行
+  pull_request:
+    branches: [ main ]
+  # 允许手动触发
+  workflow_dispatch:
+  # 定时运行（每周一次）
+  schedule:
+    - cron: '0 0 * * 1'
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build project for static export
+        run: |
+          npm run build
+          
+      - name: Start static server
+        run: |
+          npx serve -s out -l 8080 &
+          sleep 5
+        env:
+          CI: true
+          
+      - name: Wait for server
+        run: |
+          npx wait-on http://localhost:8080 --timeout 60000
+          
+      - name: Run Lighthouse CI
+        run: |
+          npm install -g @lhci/cli@0.12.x
+          lhci autorun --config=lighthouserc.cjs
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          
+      - name: Upload Lighthouse results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-results
+          path: .lighthouseci/
+          retention-days: 30

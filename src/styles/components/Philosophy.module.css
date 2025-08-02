@@ -1,0 +1,108 @@
+/* 哲学引用样式 */
+.philosophy {
+  text-align: center;
+  /* margin-top: 80px; */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 0.6s;
+}
+
+.philosophy.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.quote {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #444;
+  font-style: italic;
+  font-weight: 300;
+  margin: 0;
+  padding: 40px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+  border-radius: 20px;
+  border-left: 4px solid #667eea;
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.quote::before {
+  content: '"';
+  font-size: 4rem;
+  color: #667eea;
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  font-family: serif;
+  opacity: 0.3;
+}
+
+/* 深色模式 */
+[data-theme="dark"] .quote,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .quote {
+    color: var(--color-text-secondary);
+    background: linear-gradient(135deg, rgba(79, 172, 254, 0.1), rgba(0, 242, 254, 0.1));
+    border-left-color: #4facfe;
+  }
+}
+
+[data-theme="dark"] .quote::before,
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .quote::before {
+    color: #4facfe;
+  }
+}
+
+/* 中文字体样式 */
+:global(.chineseFont) .quote {
+  font-family: var(--font-chinese);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .philosophy {
+    /* margin-top: 60px; */
+  }
+  
+  .quote {
+    font-size: 1.1rem;
+    padding: 30px 24px;
+  }
+  
+  .quote::before {
+    font-size: 3rem;
+    top: -5px;
+    left: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .philosophy {
+    /* margin-top: 50px; */
+    padding: 8px;
+  }
+  
+  .quote {
+    font-size: 1rem;
+    padding: 24px 20px;
+  }
+  
+  .quote::before {
+    font-size: 2.5rem;
+    top: -2px;
+    left: 12px;
+  }
+}
+
+/* 动画性能优化 */
+@media (prefers-reduced-motion: reduce) {
+  .philosophy {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}

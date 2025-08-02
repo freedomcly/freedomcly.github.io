@@ -3,9 +3,9 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { trackEvent } from '@/lib/gtag';
-import styles from '@/styles/components/ContactSection.module.css';
+import styles from '@/styles/components/SectionContact.module.css';
 
-const ContactSection: React.FC = () => {
+const SectionContact: React.FC = () => {
   const { language } = useLanguage();
 
   // const contactMethods = [
@@ -47,7 +47,7 @@ const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className={styles.contactSection}>
+    <section id="contact" className={styles.sectionContact}>
       <div className={styles.container}>
         {/* Header */}
         <div className={styles.header}>
@@ -112,4 +112,4 @@ const ContactSection: React.FC = () => {
   );
 };
 
-export default ContactSection;
+export default SectionContact;

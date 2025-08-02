@@ -2,10 +2,10 @@
 
 import Image from 'next/image';
 import Navigation from '@/components/Navigation';
-import HeroSection from '@/components/HeroSection';
-import FEStorySection from '@/components/FEStorySection';
-import AIStorySection from '@/components/AIStorySection';
-import ContactSection from '@/components/ContactSection';
+import SectionHero from '@/components/SectionHero';
+import SectionStory from '@/components/SectionStory';
+import Philosophy from '@/components/Philosophy';
+import SectionContact from '@/components/SectionContact';
 // import ProjectsSection from '@/components/ProjectsSection';
 import SettingsPanel from '@/components/SettingsPanel';
 import ArticleList, {Article} from '@/components/ArticleList';
@@ -43,21 +43,38 @@ export default function Home() {
         <Navigation />
       </Suspense>
 
-      <HeroSection />
+      <SectionHero />
 
       <section id="about">
-        <FEStorySection />
+        <SectionStory
+          titleKey='feStories.title'
+          introKey='feStories.intro'
+          journeyKey='feStories.journey'
+          storiesKey='feStories.stories'
+          photo={{
+            srcKey: 'feStories.photo.src',
+            altKey: 'feStories.photo.alt',
+            width: 400,
+            height: 500,
+            captionKey: 'feStories.caption'
+          }}
+        />
       </section>
-
-      <section id="ai">
-        <AIStorySection />
+      <Philosophy philosophyKey='feStories.philosophy' />
+      <section id="ai" className={styles.ai}>
+        <SectionStory
+          titleKey='aiStories.title'
+          introKey='aiStories.intro'
+          journeyKey='feStories.journey'
+          storiesKey='aiStories.stories'
+        />
       </section>
 
       {/* <section id="projects">
         <ProjectsSection />
       </section> */}
 
-      <ContactSection />
+      <SectionContact />
 
       <section id="skills" className={`${styles.skillswrap}`}>
         <div className='lg:w-[1000px] h-[170px] flex items-center justify-center space-x-6'>
