@@ -6,6 +6,7 @@ import styles from '@/styles/components/Navigation.module.css';
 import {useRouter, usePathname} from 'next/navigation';
 import {getArticlesForLanguage} from '@/lib/articles-client';
 import {trackEvent} from '@/lib/gtag';
+import {debugLog} from '@/utils/logger';
 
 interface Article {
   slug?: string;
@@ -33,7 +34,7 @@ export default function Navigation() {
   const [showMobileArticles, setShowMobileArticles] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
-  
+
   // 用于存储滚动位置的ref
   const scrollPositionRef = useRef<number>(0);
 
@@ -145,18 +146,18 @@ export default function Navigation() {
   // 控制body滚动 - 文章列表和移动端菜单
   useEffect(() => {
     const shouldLockScroll = showMobileArticles || isMobileMenuOpen;
-    
+
     if (shouldLockScroll) {
       // 保存当前滚动位置
       scrollPositionRef.current = window.scrollY;
-      
+
       // 禁止body滚动
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.top = `-${scrollPositionRef.current}px`;
       document.body.style.width = '100%';
       document.body.style.left = '0';
-      
+
       // 添加CSS类用于额外的样式控制
       document.body.classList.add('scroll-locked');
     } else {
@@ -166,10 +167,10 @@ export default function Navigation() {
       document.body.style.top = '';
       document.body.style.width = '';
       document.body.style.left = '';
-      
+
       // 移除CSS类
       document.body.classList.remove('scroll-locked');
-      
+
       // 恢复滚动位置
       if (scrollPositionRef.current > 0) {
         window.scrollTo(0, scrollPositionRef.current);
@@ -185,7 +186,7 @@ export default function Navigation() {
       document.body.style.width = '';
       document.body.style.left = '';
       document.body.classList.remove('scroll-locked');
-      
+
       // 如果组件卸载时还有保存的滚动位置，恢复它
       if (scrollPositionRef.current > 0) {
         window.scrollTo(0, scrollPositionRef.current);
@@ -212,15 +213,15 @@ export default function Navigation() {
 
   // 平滑滚动到指定区块
   const scrollToSection = (sectionId: string) => {
-    console.log('scrollToSection called with:', sectionId);
-    
+    debugLog('scrollToSection called with:', sectionId);
+
     // 先关闭移动端菜单，这会触发滚动解锁
     setIsMobileMenuOpen(false);
-    
+
     // 如果当前处于滚动锁定状态，需要先解锁
     const wasScrollLocked = document.body.classList.contains('scroll-locked');
-    console.log('Was scroll locked:', wasScrollLocked);
-    
+    debugLog('Was scroll locked:', wasScrollLocked);
+
     if (wasScrollLocked) {
       // 立即解锁滚动
       document.body.style.overflow = '';
@@ -229,22 +230,22 @@ export default function Navigation() {
       document.body.style.width = '';
       document.body.style.left = '';
       document.body.classList.remove('scroll-locked');
-      
+
       // 恢复滚动位置
       if (scrollPositionRef.current > 0) {
         window.scrollTo(0, scrollPositionRef.current);
         scrollPositionRef.current = 0;
       }
     }
-    
+
     // 使用setTimeout确保DOM更新完成后再执行滚动
     setTimeout(() => {
       const element = document.getElementById(sectionId);
-      console.log('Target element found:', !!element);
+      debugLog('Target element found:', !!element);
       if (element) {
         const offsetTop = element.offsetTop - 80; // 考虑导航栏高度
-        console.log('Scrolling to offset:', offsetTop);
-        
+        debugLog('Scrolling to offset:', offsetTop);
+
         // 尝试多种滚动方法
         try {
           // 方法1: 使用smooth滚动
@@ -253,21 +254,21 @@ export default function Navigation() {
             behavior: 'smooth'
           });
         } catch (error) {
-          console.log('Smooth scroll failed, trying alternative:', error);
+          debugLog('Smooth scroll failed, trying alternative:', error);
           // 方法2: 直接滚动
           window.scrollTo(0, offsetTop);
         }
-        
+
         // 方法3: 使用原生锚点作为备选
         setTimeout(() => {
           if (Math.abs(window.scrollY - offsetTop) > 50) {
-            console.log('Scroll didn\'t work, using hash navigation');
+            debugLog('Scroll didn\'t work, using hash navigation');
             window.location.hash = sectionId;
           }
         }, 1000);
       } else {
         // 如果找不到元素，直接使用hash导航
-        console.log('Element not found, using hash navigation');
+        debugLog('Element not found, using hash navigation');
         window.location.hash = sectionId;
       }
     }, wasScrollLocked ? 300 : 100); // 给更多时间确保解锁完成
@@ -280,11 +281,11 @@ export default function Navigation() {
 
   // 修改导航项点击处理
   const handleNavItemClick = (itemId: string) => {
-    console.log('handleNavItemClick called with:', itemId);
-    
+    debugLog('handleNavItemClick called with:', itemId);
+
     // 判断是否在文章页面
     const isArticlePage = pathname?.startsWith('/articles/') || false;
-    console.log('Is article page:', isArticlePage);
+    debugLog('Is article page:', isArticlePage);
 
     if (itemId === 'projects') {
       // 关闭移动端菜单
@@ -415,7 +416,7 @@ export default function Navigation() {
       <div className={`${styles.mobileArticlesList} ${showMobileArticles ? styles.open : ''} ${language === 'zh' ? 'chineseFont' : ''}`}>
         {/* 顶部拖拽指示器 */}
         <div className={styles.dragIndicator}></div>
-        
+
         <div className={styles.articlesListContent}>
           {/* 简化的头部 */}
           <div className={styles.articlesListHeader}>
@@ -471,13 +472,13 @@ export default function Navigation() {
                   {searchQuery ? '🔍' : '📝'}
                 </div>
                 <h3 className={styles.emptyTitle}>
-                  {searchQuery ? 
+                  {searchQuery ?
                     (language === 'zh' ? '未找到相关文章' : 'No articles found') :
                     (language === 'zh' ? '暂无文章' : 'No articles yet')
                   }
                 </h3>
                 <p className={styles.emptyDescription}>
-                  {searchQuery ? 
+                  {searchQuery ?
                     (language === 'zh' ? '尝试使用其他关键词搜索' : 'Try different keywords') :
                     (language === 'zh' ? '文章正在准备中...' : 'Articles coming soon...')
                   }
@@ -503,7 +504,7 @@ export default function Navigation() {
                         {formatDate(article.date)}
                       </span>
                     </div>
-                    
+
                     <h3 className={styles.cardTitle} style={{
                       color: '#1e293b',
                       fontSize: '1.1rem',
@@ -514,7 +515,7 @@ export default function Navigation() {
                     }}>
                       {article.title}
                     </h3>
-                    
+
                     {article.excerpt && article.excerpt !== 'No excerpt available' && article.excerpt !== 'Remote article - click to read more' ? (
                       <p className={styles.cardExcerpt} style={{
                         color: '#64748b',
@@ -536,7 +537,7 @@ export default function Navigation() {
                         🔗 {language === 'zh' ? '来自' : 'From'} {article.sourceSite || 'External'}
                       </p>
                     )}
-                    
+
                     <div className={styles.cardFooter}>
                       <div className={styles.cardTags}>
                         {article.tags.slice(0, 4).map(tag => (
@@ -555,7 +556,7 @@ export default function Navigation() {
                       </div> */}
                     </div>
                   </div>
-                  
+
                   <div className={styles.cardGlow}></div>
                 </article>
               ))
