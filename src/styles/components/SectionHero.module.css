@@ -244,6 +244,10 @@
   animation: fadeInUp 1s ease-out 0.6s both;
 }
 
+[data-theme="dark"] .mainTitle {
+  color: #666;
+}
+
 .typewriterText {
   /* 继承父元素的样式 */
 }

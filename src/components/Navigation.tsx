@@ -287,7 +287,7 @@ export default function Navigation() {
     const isArticlePage = pathname?.startsWith('/articles/') || false;
     debugLog('Is article page:', isArticlePage);
 
-    if (itemId === 'projects') {
+    if (itemId === 'identity') {
       // 关闭移动端菜单
       setIsMobileMenuOpen(false);
       // 跳转到目标文章页面
@@ -307,7 +307,7 @@ export default function Navigation() {
   const navItems = [
     {id: 'about', icon: '💻', identity: 'identity1', label: t('nav.about')},
     {id: 'ai', icon: '🤖', identity: 'identity2', label: t('nav.ai')},
-    {id: 'projects', icon: '💃', identity: 'identity3', label: t('nav.projects')}
+    {id: 'identity', icon: '💃', identity: 'identity3', label: t('nav.identity')}
   ];
 
   const isArticlePage = pathname?.startsWith('/articles/') || false;

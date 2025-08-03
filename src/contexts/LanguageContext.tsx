@@ -20,7 +20,7 @@ const translations = {
     'nav.home': 'I am',
     'nav.about': 'Frontend Developer',
     'nav.ai': 'AI Explorer',
-    'nav.projects': 'Secret Identity',
+    'nav.identity': 'Secret Identity',
     'nav.contact': '11',
 
     // Hero section
@@ -86,7 +86,7 @@ const translations = {
     'nav.home': '我是',
     'nav.about': '前端工程师',
     'nav.ai': 'AI 探索者',
-    'nav.projects': '隐藏身份',
+    'nav.identity': '神秘爱好',
     'nav.contact': '11',
 
     // Hero section
