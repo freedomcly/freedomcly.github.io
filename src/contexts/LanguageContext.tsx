@@ -18,17 +18,17 @@ const translations = {
   en: {
     // Header
     'nav.home': 'I am',
-    'nav.about': 'Frontend Engineer',
+    'nav.about': 'Frontend Developer',
     'nav.ai': 'AI Explorer',
     'nav.projects': 'Secret Identity',
     'nav.contact': '11',
 
     // Hero section
     'hero.greeting': 'Hi, I\'m Tracy.Cui',
-    'hero.title1': 'Frontend Engineer',
+    'hero.title1': 'Frontend Developer',
     'hero.title2': 'Pixel & Performance Perfectionist',
-    'hero.desc1': 'Weaving dreams with code for 10+ years',
-    'hero.desc2': 'An innovative practitioner combining technical expertise with multidisciplinary thinking',
+    'hero.desc1': 'Crafting digital experiences with code for 10+ years',
+    'hero.desc2': 'A creative developer who blends technical expertise with cross-disciplinary insights',
     'hero.desc3': 'Strong curiosity, strong learning ability, embracing all possibilities and changes',
     'hero.cta': 'Let\'s create something amazing together',
 
@@ -37,7 +37,7 @@ const translations = {
     'feStories.intro': 'Passionate about development and building, always serving as a bridge for human-computer interaction, I call myself a human-machine intent interpreter.',
     'feStories.journey': 'My Journey',
     'feStories.stories': [
-      '� Guraduated from University of Electronic Science and Technology of China (985 undergraduate) in 2014.',
+      '🚀 Graduated from University of Electronic Science and Technology of China (985 undergraduate) in 2014.',
       '💡 From 2014-2021, I joined several well-known internet companies: Meituan, Innovation Works, Vivo, Futu, etc., participating in polishing multiple products. While advancing my frontend skills, I also accumulated rich project experience.',
       '✨ In 2021, I quit my 995 job and started my digital nomad journey, taking orders on Upwork, continuously consolidating technical advantages, and keeping up with overseas technology trends. This greatly expanded my technical breadth and independence in problem-solving, evolving from frontend to full-stack.',
       '🌟 During my digital nomad period from 2021-2025, I sought the combination of technology and business. Leveraging my advantages, I independently built cross-border e-commerce operation platforms and successfully operated multiple cross-border e-commerce stores independently.',

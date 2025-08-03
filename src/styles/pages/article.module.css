@@ -148,8 +148,8 @@
 }
 
 .articleContent {
-  font-size: 1.15rem;
-  line-height: 1.9;
+  font-size: 1.1rem;
+  line-height: 1.8;
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(10px);
   padding: 48px 56px;
@@ -158,13 +158,31 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   margin-top: 40px;
   max-width: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.markdown {
-  color: #333;
+/* 选中文本的样式 */
+.articleContent ::selection {
+  background: rgba(102, 126, 234, 0.2);
+  color: var(--color-text-primary);
 }
 
-.markdown h1 {
+.articleContent ::-moz-selection {
+  background: rgba(102, 126, 234, 0.2);
+  color: var(--color-text-primary);
+}
+
+/* 文章内容样式 - 针对实际HTML元素 */
+.articleContent {
+  color: var(--color-text-primary);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.articleContent h1 {
   font-size: 2.2rem;
   font-weight: 700;
   margin: 64px 0 40px 0;
@@ -181,7 +199,7 @@
   letter-spacing: -0.02em;
 }
 
-.markdown h1::before {
+.articleContent h1::before {
   content: '';
   position: absolute;
   left: 0;
@@ -192,7 +210,7 @@
   border-radius: 2px;
 }
 
-.markdown h2 {
+.articleContent h2 {
   font-size: 1.8rem;
   font-weight: 600;
   margin: 56px 0 28px 0;
@@ -207,7 +225,7 @@
   letter-spacing: -0.01em;
 }
 
-.markdown h2::before {
+.articleContent h2::before {
   content: '##';
   position: absolute;
   left: -2px;
@@ -219,7 +237,7 @@
   font-weight: 300;
 }
 
-.markdown h3 {
+.articleContent h3 {
   font-size: 1.4rem;
   font-weight: 600;
   margin: 48px 0 24px 0;
@@ -231,7 +249,7 @@
   position: relative;
 }
 
-.markdown h3::after {
+.articleContent h3::after {
   content: '';
   position: absolute;
   left: 0;
@@ -241,7 +259,7 @@
   background: var(--color-primary);
 }
 
-.markdown h4 {
+.articleContent h4 {
   font-size: 1.2rem;
   font-weight: 600;
   margin: 36px 0 18px 0;
@@ -254,7 +272,7 @@
   background: linear-gradient(90deg, rgba(102, 126, 234, 0.03) 0%, transparent 100%);
 }
 
-.markdown h5 {
+.articleContent h5 {
   font-size: 1.1rem;
   font-weight: 600;
   margin: 32px 0 16px 0;
@@ -266,7 +284,7 @@
   font-size: 0.95rem;
 }
 
-.markdown h6 {
+.articleContent h6 {
   font-size: 1rem;
   font-weight: 600;
   margin: 28px 0 14px 0;
@@ -276,48 +294,116 @@
   font-style: italic;
 }
 
-.markdown p {
-  margin: 28px 0;
+.articleContent p {
+  margin: 32px 0;
   color: var(--color-text-primary);
-  line-height: 1.9;
-  text-align: justify;
-  word-spacing: 0.05em;
-  letter-spacing: 0.01em;
-  font-size: 1.05em;
+  line-height: 1.8;
+  text-align: left;
+  word-spacing: 0.02em;
+  letter-spacing: 0.005em;
+  font-size: 1.1em;
   text-indent: 0;
+  font-weight: 400;
+  max-width: none;
+  word-break: break-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
 }
 
-.markdown p:first-of-type {
+.articleContent p:first-of-type {
   margin-top: 0;
-  font-size: 1.1em;
+  font-size: 1.2em;
   font-weight: 400;
   color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-bottom: 40px;
 }
 
-.markdown p + h1,
-.markdown p + h2,
-.markdown p + h3 {
-  margin-top: 48px;
+.articleContent p+h1,
+.articleContent p+h2,
+.articleContent p+h3 {
+  margin-top: 56px;
 }
 
-.markdown h1 + p,
-.markdown h2 + p,
-.markdown h3 + p {
+.articleContent h1+p,
+.articleContent h2+p,
+.articleContent h3+p {
+  margin-top: 24px;
+}
+
+.articleContent p+p {
+  margin-top: 24px;
+}
+
+.articleContent p+ul,
+.articleContent p+ol {
   margin-top: 20px;
 }
 
-.markdown ul, .markdown ol {
+.articleContent ul+p,
+.articleContent ol+p {
+  margin-top: 24px;
+}
+
+/* 段落与其他元素的间距优化 */
+.articleContent blockquote+p,
+.articleContent p+blockquote {
+  margin-top: 32px;
+}
+
+.articleContent pre+p,
+.articleContent p+pre {
+  margin-top: 28px;
+}
+
+.articleContent ul,
+.articleContent ol {
   margin: 24px 0;
   padding-left: 32px;
 }
 
-.markdown li {
-  margin: 12px 0;
-  color: #444;
+.articleContent li {
+  margin: 16px 0;
+  color: var(--color-text-primary);
   line-height: 1.8;
+  font-size: 1.05em;
+  word-break: break-word;
+  padding-left: 8px;
 }
 
-.markdown blockquote {
+.articleContent li::marker {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* 中文列表项优化 */
+.chineseFont .articleContent li {
+  line-height: 2;
+  letter-spacing: 0.01em;
+  margin: 12px 0;
+  word-break: break-all;
+}
+
+:global(.chineseFont) .articleContent li {
+  line-height: 2;
+  letter-spacing: 0.01em;
+  margin: 12px 0;
+  word-break: break-all;
+}
+
+/* 英文列表项优化 */
+:global(.englishFont) .articleContent li {
+  line-height: 1.75;
+  letter-spacing: 0.005em;
+  word-spacing: 0.03em;
+  margin: 14px 0;
+  word-break: break-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+.articleContent blockquote {
   margin: 32px 0;
   padding: 24px 32px;
   background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(102, 126, 234, 0.03) 100%);
@@ -327,7 +413,7 @@
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
 }
 
-.markdown blockquote::before {
+.articleContent blockquote::before {
   content: '"';
   position: absolute;
   top: -10px;
@@ -339,17 +425,42 @@
   line-height: 1;
 }
 
-.markdown blockquote p {
+.articleContent blockquote p {
   margin: 0;
   color: var(--color-text-secondary);
   font-style: italic;
-  font-size: 1.05em;
+  font-size: 1.1em;
   line-height: 1.8;
   position: relative;
   z-index: 1;
+  text-indent: 0;
+  letter-spacing: 0.01em;
 }
 
-.markdown pre {
+/* 中文引用块优化 */
+.chineseFont .articleContent blockquote p {
+  font-style: normal;
+  line-height: 2;
+  letter-spacing: 0.02em;
+  text-indent: 0;
+}
+
+:global(.chineseFont) .articleContent blockquote p {
+  font-style: normal;
+  line-height: 2;
+  letter-spacing: 0.02em;
+  text-indent: 0;
+}
+
+/* 英文引用块优化 */
+:global(.englishFont) .articleContent blockquote p {
+  font-style: italic;
+  line-height: 1.75;
+  letter-spacing: 0.005em;
+  word-spacing: 0.03em;
+}
+
+.articleContent pre {
   background: #f8f9fa;
   border: 1px solid #e9ecef;
   border-radius: 8px;
@@ -360,7 +471,7 @@
   line-height: 1.5;
 }
 
-.markdown code {
+.articleContent code {
   background: #f8f9fa;
   padding: 2px 6px;
   border-radius: 4px;
@@ -369,25 +480,25 @@
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
 }
 
-.markdown pre code {
+.articleContent pre code {
   background: none;
   padding: 0;
   color: #333;
 }
 
-.markdown a {
+.articleContent a {
   color: var(--color-primary);
   text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: all 0.2s ease;
 }
 
-.markdown a:hover {
+.articleContent a:hover {
   color: #764ba2;
   border-bottom-color: #764ba2;
 }
 
-.markdown img {
+.articleContent img {
   max-width: 100%;
   height: auto;
   border-radius: 16px;
@@ -398,12 +509,12 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.markdown img:hover {
+.articleContent img:hover {
   transform: scale(1.02);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
-.markdown p img {
+.articleContent p img {
   margin: 32px auto;
 }
 
@@ -425,19 +536,100 @@
   font-size: 1.1rem;
 }
 
-/* 中文字体支持 */
-:global(.chineseFont) .articleTitle,
-:global(.chineseFont) .markdown h1,
-:global(.chineseFont) .markdown h2,
-:global(.chineseFont) .markdown h3 {
+/* 中文字体支持和排版优化 */
+.chineseFont .articleTitle,
+.chineseFont .articleContent h1,
+.chineseFont .articleContent h2,
+.chineseFont .articleContent h3 {
   font-family: var(--font-chinese);
 }
 
-:global(.chineseFont) .markdown p,
-:global(.chineseFont) .markdown li,
+:global(.chineseFont) .articleTitle,
+:global(.chineseFont) .articleContent h1,
+:global(.chineseFont) .articleContent h2,
+:global(.chineseFont) .articleContent h3 {
+  font-family: var(--font-chinese);
+}
+
+.chineseFont .articleContent p,
+.chineseFont .articleContent li,
+.chineseFont .articleMeta,
+.chineseFont .breadcrumb {
+  font-family: var(--font-chinese);
+}
+
+:global(.chineseFont) .articleContent p,
+:global(.chineseFont) .articleContent li,
 :global(.chineseFont) .articleMeta,
 :global(.chineseFont) .breadcrumb {
   font-family: var(--font-chinese);
+}
+
+/* 中文段落特殊优化 */
+.chineseFont .articleContent p {
+  line-height: 2;
+  letter-spacing: 0.02em;
+  word-spacing: 0;
+  text-align: left;
+  text-indent: 2em;
+  margin: 24px 0;
+  font-size: 1.1em;
+  word-break: break-all;
+  hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+}
+
+:global(.chineseFont) .articleContent p {
+  line-height: 2;
+  letter-spacing: 0.02em;
+  word-spacing: 0;
+  text-align: left;
+  text-indent: 2em;
+  margin: 24px 0;
+  font-size: 1.1em;
+  word-break: break-all;
+  hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+}
+
+.chineseFont .articleContent p:first-of-type {
+  text-indent: 0;
+  font-size: 1.15em;
+  line-height: 1.8;
+  margin-bottom: 32px;
+  font-weight: 400;
+}
+
+:global(.chineseFont) .articleContent p:first-of-type {
+  text-indent: 0;
+  font-size: 1.15em;
+  line-height: 1.8;
+  margin-bottom: 32px;
+  font-weight: 400;
+}
+
+/* 英文段落优化 */
+:global(.englishFont) .articleContent p {
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+  word-spacing: 0.05em;
+  text-align: left;
+  text-indent: 0;
+  margin: 28px 0;
+  font-size: 1.1em;
+  word-break: break-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+}
+
+:global(.englishFont) .articleContent p:first-of-type {
+  text-indent: 0;
+  font-size: 1.2em;
+  line-height: 1.7;
+  margin-bottom: 36px;
 }
 
 /* 深色模式支持 */
@@ -522,78 +714,79 @@
 }
 
 /* 深色模式下的markdown样式 */
-[data-theme="dark"] .markdown h1 {
+[data-theme="dark"] .articleContent h1 {
   color: var(--color-text-primary);
   border-bottom-color: var(--color-primary);
 }
 
-[data-theme="dark"] .markdown h1::before {
+[data-theme="dark"] .articleContent h1::before {
   background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
 }
 
-[data-theme="dark"] .markdown h2 {
+[data-theme="dark"] .articleContent h2 {
   color: var(--color-primary);
   background: linear-gradient(90deg, rgba(79, 172, 254, 0.08) 0%, transparent 100%);
   border-left-color: var(--color-primary);
 }
 
-[data-theme="dark"] .markdown h2::before {
+[data-theme="dark"] .articleContent h2::before {
   color: var(--color-primary);
 }
 
-[data-theme="dark"] .markdown h3 {
+[data-theme="dark"] .articleContent h3 {
   color: var(--color-text-primary);
   border-bottom-color: rgba(79, 172, 254, 0.3);
 }
 
-[data-theme="dark"] .markdown h3::after {
+[data-theme="dark"] .articleContent h3::after {
   background: var(--color-primary);
 }
 
-[data-theme="dark"] .markdown h4 {
+[data-theme="dark"] .articleContent h4 {
   color: var(--color-text-primary);
   border-left-color: var(--color-primary);
   background: linear-gradient(90deg, rgba(79, 172, 254, 0.05) 0%, transparent 100%);
 }
 
-[data-theme="dark"] .markdown h5 {
+[data-theme="dark"] .articleContent h5 {
   color: var(--color-text-secondary);
 }
 
-[data-theme="dark"] .markdown h6 {
+[data-theme="dark"] .articleContent h6 {
   color: var(--color-text-tertiary);
 }
 
-[data-theme="dark"] .markdown p {
+[data-theme="dark"] .articleContent p {
   color: var(--color-text-primary);
 }
 
-[data-theme="dark"] .markdown p:first-of-type {
+[data-theme="dark"] .articleContent p:first-of-type {
   color: var(--color-text-secondary);
 }
 
-[data-theme="dark"] .markdown li {
+[data-theme="dark"] .articleContent li {
   color: var(--color-text-primary);
 }
 
-[data-theme="dark"] .markdown blockquote {
+[data-theme="dark"] .articleContent blockquote {
   background: linear-gradient(135deg, rgba(79, 172, 254, 0.12) 0%, rgba(79, 172, 254, 0.05) 100%);
   border-left-color: var(--color-primary);
   box-shadow: 0 4px 12px rgba(79, 172, 254, 0.15);
 }
 
-[data-theme="dark"] .markdown blockquote::before {
+[data-theme="dark"] .articleContent blockquote::before {
   color: var(--color-primary);
 }
 
-[data-theme="dark"] .markdown blockquote p {
+[data-theme="dark"] .articleContent blockquote p {
   color: var(--color-text-secondary);
 }
 
 /* 响应式设计 */
 @media (max-width: 1200px) {
   .article {
-    margin-right: 0; /* 在小屏幕上移除右边距 */
+    margin-right: 0;
+    /* 在小屏幕上移除右边距 */
   }
 }
 
@@ -602,28 +795,28 @@
     padding: 100px 20px 40px;
     margin-right: 0;
   }
-  
+
   .articleTitle {
     font-size: 2rem;
   }
-  
+
   .articleMeta {
     flex-wrap: wrap;
     gap: 12px;
   }
-  
-  .markdown h1 {
+
+  .articleContent h1 {
     font-size: 1.6rem;
   }
-  
-  .markdown h2 {
+
+  .articleContent h2 {
     font-size: 1.4rem;
   }
-  
-  .markdown h3 {
+
+  .articleContent h3 {
     font-size: 1.2rem;
   }
-  
+
   .articleContent {
     font-size: 1rem;
   }
@@ -722,30 +915,30 @@
   .container {
     padding: 100px 20px 60px;
   }
-  
+
   .articleHeader {
     padding: 24px;
     margin-bottom: 40px;
   }
-  
+
   .articleTitle {
     font-size: 2rem;
   }
-  
+
   .breadcrumb {
     font-size: 0.85rem;
   }
-  
+
   .articleMeta {
     font-size: 0.85rem;
     gap: 16px;
   }
-  
+
   .articleContent {
     padding: 32px 24px;
     font-size: 1rem;
   }
-  
+
   .articleFooter {
     padding: 24px;
     flex-direction: column;
