@@ -833,7 +833,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 0 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.08); */
   /* margin-bottom: 20px; */
 }
 
@@ -1031,12 +1031,12 @@
   }
 }
 
-.articleCard:hover {
+/* .articleCard:hover {
   transform: translateY(-6px) scale(1.02);
   box-shadow: 0 24px 48px rgba(37, 99, 235, 0.18);
   border-color: rgba(37, 99, 235, 0.25);
   background: rgba(255, 255, 255, 1);
-}
+} */
 
 .cardContent {
   padding: 16px;
@@ -1092,9 +1092,9 @@
   visibility: visible;
 }
 
-.articleCard:hover .cardTitle {
+/* .articleCard:hover .cardTitle {
   color: var(--color-primary);
-}
+} */
 
 .cardExcerpt {
   font-size: 0.9rem;
@@ -1199,9 +1199,9 @@
   z-index: 1;
 }
 
-.articleCard:hover .cardGlow {
+/* .articleCard:hover .cardGlow {
   opacity: 1;
-}
+} */
 
 /* 空状态 */
 .emptyState {

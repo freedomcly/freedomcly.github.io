@@ -7,14 +7,14 @@ import SectionStory from '@/components/SectionStory';
 import Philosophy from '@/components/Philosophy';
 import SectionContact from '@/components/SectionContact';
 // import ProjectsSection from '@/components/ProjectsSection';
-import LoadingSpinner from '@/components/LoadingSpinner';
+
 import {useLanguage} from '@/contexts/LanguageContext';
-import {useState, useEffect, Suspense, lazy} from 'react';
+import {useState, useEffect, Suspense} from 'react';
 import type {Article} from '@/components/ArticleList';
 
-// 动态导入非关键组件
-const ArticleList = lazy(() => import('@/components/ArticleList'));
-const SettingsPanel = lazy(() => import('@/components/SettingsPanel'));
+// 直接导入组件
+import ArticleList from '@/components/ArticleList';
+import SettingsPanel from '@/components/SettingsPanel';
 
 import styles from '@/styles/pages/home.module.css';
 
@@ -155,29 +155,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 动态加载的文章列表 */}
-      <Suspense fallback={
-        <div style={{
-          position: 'fixed',
-          top: '50%',
-          right: '30px',
-          transform: 'translateY(-50%)',
-          zIndex: 900
-        }}>
-          <LoadingSpinner size="medium" />
-        </div>
-      }>
-        <ArticleList
-          articles={articles}
-          showCategories={true}
-          showSearch={false}
-        />
-      </Suspense>
+      {/* 文章列表 */}
+      <ArticleList
+        articles={articles}
+        showCategories={true}
+        showSearch={false}
+      />
 
-      {/* 动态加载的设置面板 */}
-      <Suspense fallback={null}>
-        <SettingsPanel />
-      </Suspense>
+      {/* 设置面板 */}
+      <SettingsPanel />
     </div>
   );
 }

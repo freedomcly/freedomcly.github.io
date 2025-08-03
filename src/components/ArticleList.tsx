@@ -38,7 +38,7 @@ export default function ArticleList({
   const [filteredArticles, setFilteredArticles] = useState<Article[]>(articles);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [sortBy, setSortBy] = useState<'date-desc' | 'date-asc' | 'title'>(() => {
+  const [sortBy] = useState<'date-desc' | 'date-asc' | 'title'>(() => {
     // 从localStorage读取用户偏好，默认为最新优先
     if (typeof window !== 'undefined') {
       return (localStorage.getItem('articleSortBy') as 'date-desc' | 'date-asc' | 'title') || 'date-desc';
@@ -46,7 +46,6 @@ export default function ArticleList({
     return 'date-desc';
   });
   const [isVisible, setIsVisible] = useState(false);
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [animatingCards, setAnimatingCards] = useState<Set<string>>(new Set());
   const [shouldHide] = useState(false);
@@ -54,11 +53,7 @@ export default function ArticleList({
   const [userManuallyToggled, setUserManuallyToggled] = useState(false);
   const [lastScrollTime, setLastScrollTime] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
-  const [fabClickTimeout, setFabClickTimeout] = useState<NodeJS.Timeout | null>(null);
-
-  // iOS检测
-  const isIOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
-
+  const [fabClickTimeout] = useState<NodeJS.Timeout | null>(null);
   const {elementRef: listRef, isVisible: isInView} = useScrollAnimation();
 
   // 使用传入的文章数据
@@ -200,7 +195,6 @@ export default function ArticleList({
       // 使用Next.js的客户端路由，速度更快
       router.push(`/articles/${thisArticle.slug}`);
     }
-    setIsMobileOpen(false);
   };
 
   // 预加载文章页面
