@@ -1,0 +1,30 @@
+1:"$Sreact.fragment"
+2:I[9795,["177","static/chunks/app/layout-8cabcc801f216a85.js"],"default"]
+3:I[7740,["177","static/chunks/app/layout-8cabcc801f216a85.js"],"ThemeProvider"]
+4:I[9283,["177","static/chunks/app/layout-8cabcc801f216a85.js"],"LanguageProvider"]
+5:"$Sreact.suspense"
+6:I[5298,["177","static/chunks/app/layout-8cabcc801f216a85.js"],"default"]
+7:I[526,["177","static/chunks/app/layout-8cabcc801f216a85.js"],"default"]
+8:I[7555,[],""]
+9:I[1295,[],""]
+a:I[6874,["874","static/chunks/874-4dfba127ff474563.js","345","static/chunks/app/not-found-54967f5f46bda625.js"],""]
+b:I[894,[],"ClientPageRoot"]
+c:I[2588,["212","static/chunks/212-408fcbaf99dfc48f.js","569","static/chunks/569-bf890e96dbee2408.js","974","static/chunks/app/page-812daf56058f7a15.js"],"default"]
+f:I[9665,[],"MetadataBoundary"]
+11:I[9665,[],"OutletBoundary"]
+14:I[4911,[],"AsyncMetadataOutlet"]
+16:I[9665,[],"ViewportBoundary"]
+18:I[6614,[],""]
+:HL["/_next/static/css/e3660dce99bf2974.css","style"]
+:HL["/_next/static/css/8479c697f75079d0.css","style"]
+:HL["/_next/static/css/b9b85dde6daf8cec.css","style"]
+0:{"P":null,"b":"hJM5z5gW58eLVhsA4EGQo","p":"","c":["",""],"i":false,"f":[[["",{"children":["__PAGE__",{}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/e3660dce99bf2974.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":[["$","head",null,{"children":[["$","link",null,{"rel":"preconnect","href":"https://fonts.googleapis.com"}],["$","link",null,{"rel":"preconnect","href":"https://fonts.gstatic.com","crossOrigin":"anonymous"}]]}],["$","body",null,{"children":[["$","$L2",null,{}],["$","$L3",null,{"children":["$","$L4",null,{"children":[["$","$5",null,{"fallback":null,"children":["$","$L6",null,{}]}],["$","$L7",null,{}],["$","$5",null,{"fallback":["$","div",null,{"children":"Loading..."}],"children":["$","$L8",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L9",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","div",null,{"className":"min-h-screen flex items-center justify-center","children":["$","div",null,{"className":"text-center","children":[["$","h1",null,{"className":"text-4xl font-bold mb-4","children":"404"}],["$","h2",null,{"className":"text-2xl mb-4","children":"Page Not Found"}],["$","p",null,{"className":"mb-8","children":"The page you are looking for does not exist."}],["$","$La",null,{"href":"/","className":"bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-colors","children":"Go Home"}]]}]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]]}]}]]}]]}]]}],{"children":["__PAGE__",["$","$1","c",{"children":[["$","$Lb",null,{"Component":"$c","searchParams":{},"params":{},"promises":["$@d","$@e"]}],["$","$Lf",null,{"children":"$L10"}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/8479c697f75079d0.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/css/b9b85dde6daf8cec.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","$L11",null,{"children":["$L12","$L13",["$","$L14",null,{"promise":"$@15"}]]}]]}],{},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","5OhVs1sXQs4yzDdtRhAxX",{"children":[["$","$L16",null,{"children":"$L17"}],null]}],null]}],false]],"m":"$undefined","G":["$18","$undefined"],"s":false,"S":true}
+19:I[4911,[],"AsyncMetadata"]
+d:{}
+e:{}
+10:["$","$5",null,{"fallback":null,"children":["$","$L19",null,{"promise":"$@1a"}]}]
+13:null
+17:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"}]]
+12:null
+1a:{"metadata":[["$","title","0",{"children":"Tracy Cui - Senior Front End Engineer, JavaScript Expert"}],["$","meta","1",{"name":"description","content":"Tracy Cui - Senior Front End Engineer, JavaScript Expert"}],["$","link","2",{"rel":"icon","href":"/favicon.ico"}]],"error":null,"digest":"$undefined"}
+15:{"metadata":"$1a:metadata","error":null,"digest":"$undefined"}
