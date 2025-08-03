@@ -65,10 +65,10 @@ module.exports = {
         'font-display': 'warn'
       }
     },
-    upload: {
-      // 如果你想要持久化存储结果，可以配置这里
-      // 暂时注释掉，使用临时存储
-      // target: 'temporary-public-storage'
-    }
+    // 完全禁用上传功能
+    // upload: {
+    //   target: 'filesystem',
+    //   outputDir: '.lighthouseci'
+    // }
   }
 };

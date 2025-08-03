@@ -12,8 +12,7 @@
     "pages": "gh-pages -d out -f",
     "deploy": "next build && gh-pages -d out -f",
     "lighthouse": "node scripts/lighthouse-local.js",
-    "lighthouse:mobile": "node scripts/lighthouse-mobile.js",
-    "lighthouse:install": "npm install -g @lhci/cli@0.12.x"
+    "lighthouse:mobile": "node scripts/lighthouse-mobile.js"
   },
   "dependencies": {
     "gh-pages": "^6.3.0",

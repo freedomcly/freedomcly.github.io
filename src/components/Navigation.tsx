@@ -517,23 +517,11 @@ export default function Navigation() {
                     </h3>
 
                     {article.excerpt && article.excerpt !== 'No excerpt available' && article.excerpt !== 'Remote article - click to read more' ? (
-                      <p className={styles.cardExcerpt} style={{
-                        color: '#64748b',
-                        fontSize: '0.9rem',
-                        margin: '0 0 16px 0',
-                        lineHeight: '1.5',
-                        display: 'block'
-                      }}>
+                      <p className={styles.cardExcerpt}>
                         {article.excerpt}
                       </p>
                     ) : (
-                      <p className={styles.cardSource} style={{
-                        color: '#94a3b8',
-                        fontSize: '0.85rem',
-                        margin: '0 0 16px 0',
-                        fontStyle: 'italic',
-                        display: 'block'
-                      }}>
+                      <p className={styles.cardSource}>
                         🔗 {language === 'zh' ? '来自' : 'From'} {article.sourceSite || 'External'}
                       </p>
                     )}
@@ -560,6 +548,16 @@ export default function Navigation() {
                   <div className={styles.cardGlow}></div>
                 </article>
               ))
+            )}
+            {/* 底部提示组件 */}
+            {filteredArticles.length > 0 && (
+              <div className={styles.bottomIndicator}>
+                <div className={styles.bottomLine}></div>
+                <span className={styles.bottomText}>
+                  {language === 'zh' ? '已到达底部' : 'End of articles'}
+                </span>
+                <div className={styles.bottomLine}></div>
+              </div>
             )}
           </div>
         </div>

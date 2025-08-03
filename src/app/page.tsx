@@ -27,18 +27,22 @@ export default function Home() {
     const loadArticles = async () => {
       try {
         const {remoteArticles} = await import('@/lib/remote-articles');
-        const currentArticles = remoteArticles.map(article => ({
-          slug: article.meta.remoteUrl,
-          title: article.meta.title[language] || article.meta.title.zh,
-          date: article.meta.date,
-          readTime: article.meta.readTime,
-          isRemote: true,
-          category: article.meta.category[language] || article.meta.category.zh,
-          tags: article.meta.tags,
-          excerpt: 'Remote article - click to read more',
-          sourceSite: article.meta.remoteUrl?.includes('github.com') ? 'GitHub' :
-            article.meta.remoteUrl?.includes('mp.weixin.qq.com') ? '微信公众号' : 'External'
-        }));
+        const currentArticles = remoteArticles.map(article => {
+          const sourceSite = article.meta.remoteUrl?.includes('github.com') ? 'GitHub' :
+            article.meta.remoteUrl?.includes('mp.weixin.qq.com') ? '微信公众号' : 'External';
+          
+          return {
+            slug: article.meta.remoteUrl,
+            title: article.meta.title[language] || article.meta.title.zh,
+            date: article.meta.date,
+            readTime: article.meta.readTime,
+            isRemote: true,
+            category: article.meta.category[language] || article.meta.category.zh,
+            tags: article.meta.tags,
+            excerpt: `${language === 'zh' ? '来自' : 'From'} ${sourceSite}`,
+            sourceSite: sourceSite
+          };
+        });
         setArticles(currentArticles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()));
       } catch (error) {
         console.error('Failed to load articles:', error);
